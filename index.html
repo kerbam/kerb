@@ -35,6 +35,33 @@
           // as long as it's not one of the above reserved names.
         }
       });
+      function getStateObject() {
+        var stateObject = {
+          setupUserAttribution: {
+          isCollectorDownloaded: false,
+          isCollectorActivated: true,
+          isInsightAgentDownloaded: false
+      },
+         increaseYourVisibility: {
+         isFirewallConnected: false,
+         isVPNConnected: false,
+         isCloudServicesConnected: false,
+         isDNSConnected: false,
+         isHoneyPotDeployed: false,
+         isHoneyUserDeployed: false,
+         isNexposeConnected: false 
+      },
+        customizeYourExperience: {
+            isRawLogAdded: false,
+            isCustomDashboardCreated: false,
+            isCustomAlertCreated: false,
+            wereExtensiveAgentsRolledout: false,
+            wereAdditionalEventSourcesSetup: false,
+            wereIncidentsSimulated: false
+        }
+      }
+        return stateObject;
+      }
      </script>
     </body>
   </head>
