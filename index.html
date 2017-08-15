@@ -16,7 +16,7 @@
         additionalApiKeys: ['b4eb7727-86c5-4ebd-6f2f-d5b6e55f70fd'],
 
         visitor: {
-          //id:            'VISITOR-UNIQUE-ID'   // Required if user is logged in
+          id:              null   // Required if user is logged in
           // email:        // Optional
           // role:         // Optional
 
@@ -35,33 +35,6 @@
           // as long as it's not one of the above reserved names.
         }
       });
-      function getStateObject() {
-        var stateObject = {
-          setupUserAttribution: {
-          isCollectorDownloaded: false,
-          isCollectorActivated: true,
-          isInsightAgentDownloaded: false
-      },
-         increaseYourVisibility: {
-         isFirewallConnected: false,
-         isVPNConnected: false,
-         isCloudServicesConnected: false,
-         isDNSConnected: false,
-         isHoneyPotDeployed: false,
-         isHoneyUserDeployed: false,
-         isNexposeConnected: false 
-      },
-        customizeYourExperience: {
-            isRawLogAdded: false,
-            isCustomDashboardCreated: false,
-            isCustomAlertCreated: false,
-            wereExtensiveAgentsRolledout: false,
-            wereAdditionalEventSourcesSetup: false,
-            wereIncidentsSimulated: false
-        }
-      }
-        return stateObject;
-      }
      </script>
     </body>
   </head>
