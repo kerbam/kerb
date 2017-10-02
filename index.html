@@ -43,7 +43,8 @@
             pendo.guides = pendo._.filter(pendo.guides, function (guide) {
                 return guide.launchMethod.indexOf('auto') < 0;
             });
-            pendo.startGuides();
+            var activeGuides = pendo.guides
+            pendo.startGuides(activeGuides);
           }
         }
     });
