@@ -33,19 +33,19 @@
 
           // You can add any additional account level key-values here,
           // as long as it's not one of the above reserved names.
-        },
-        
-        guides: {
-          delay: true
-        },
-        events: {
-          guidesLoaded: function () {
-            pendo.guides = pendo._.filter(pendo.guides, function (guide) {
-                return guide.launchMethod.indexOf('auto') < 0;
-            });
-            pendo.startGuides();
-          }
         }
+        
+//         guides: {
+//           delay: true
+//         },
+//         events: {
+//           guidesLoaded: function () {
+//             pendo.guides = pendo._.filter(pendo.guides, function (guide) {
+//                 return guide.launchMethod.indexOf('auto') < 0;
+//             });
+//             pendo.startGuides();
+//           }
+//         }
     });
      </script>
     </body>
