@@ -41,7 +41,9 @@
         events: {
           guidesLoaded: function () {
             pendo.guides = pendo._.filter(pendo.guides, function (guide) {
-                return guide.launchMethod !== 'auto';
+                if (guide.launchMethod === 'auto') {
+                    guide.canShow = false;
+                };
             });
             pendo.startGuides();
           }
@@ -51,4 +53,3 @@
     </body>
   </head>
 </html>
-
