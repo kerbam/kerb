@@ -1,0 +1,25 @@
+{
+    "yKRJoewF7fOynLrehR55eOdPdxE": {
+        "en": {
+            "name": "English Guide Name",
+            "GIMt8EWyjtEOI67r_M4AJDu8OxM": {
+                "title": "Hello",
+                "description": "lang set to en: click <a href=\"de.html\">here</a> to load the German page."
+            }
+        },
+        "de": {
+            "name": "German Guide Name",
+            "GIMt8EWyjtEOI67r_M4AJDu8OxM": {
+                "title": "Hallo",
+                "description": "lang set to de: click <a href=\"nl.html\">here</a> to load the Dutch page."
+            }
+        },
+        "nl": {
+            "name": "Dutch Guide Name",
+            "GIMt8EWyjtEOI67r_M4AJDu8OxM": {
+                "title": "Helo",
+                "description": "lang set to nl: click <a href=\"jp.html\">here</a> to load the Japanese page."
+            }
+        }
+    }
+}
