@@ -1,16 +1,17 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <!--
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -19,44 +20,160 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-     <div id="root"></div>
-     <script>
-           (function(apiKey){
-             (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=[];
-               v=['initialize','identify','updateOptions','pageLoad'];for(w=0,x=v.length;w<x;++w)(function(m){
-               o[m]=o[m]||function(){o._q[m===v[0]?'unshift':'push']([m].concat([].slice.call(arguments,0)));};})(v[w]);
-               y=e.createElement(n);y.async=!0;y.src='https://cdn.pendo.io/agent/static/'+apiKey+'/pendo.js';
-               z=e.getElementsByTagName(n)[0];z.parentNode.insertBefore(y,z);})(window,document,'script','pendo');
-             // Call this whenever information about your visitors becomes available
-             // Please use Strings, Numbers, or Bools for value types.
-             pendo.initialize({
-               apiKey: apiKey,
-               visitor: {
-                 id:              'VISITOR-UNIQUE-ID'   // Required if user is logged in
-                 // email:        // Optional
-                 // role:         // Optional
-                 // You can add any additional visitor level key-values here,
-                 // as long as it's not one of the above reserved names.
-               },
-               account: {
-                 // id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
-                 // name:         // Optional
-                 // planLevel:    // Optional
-                 // planPrice:    // Optional
-                 // creationDate: // Optional
-                 // You can add any additional account level key-values here,
-                 // as long as it's not one of the above reserved names.
-               }
-             });
-           })('f72d5f01-b371-4cad-7f04-df672c356b81');
-      </script>
-    <!--
+  <title>React App</title>
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
+  <script>
+    (function (apiKey) {
+      (function (p, e, n, d, o) {
+        var v, w, x, y, z;
+        o = p[d] = p[d] || {};
+        o._q = [];
+        v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
+        for (w = 0, x = v.length; w < x; ++w)(function (m) {
+          o[m] = o[m] || function () {
+            o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(arguments, 0)));
+          };
+        })(v[w]);
+        y = e.createElement(n);
+        y.async = !0;
+        y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
+        z = e.getElementsByTagName(n)[0];
+        z.parentNode.insertBefore(y, z);
+      })(window, document, 'script', 'pendo');
+      // Call this whenever information about your visitors becomes available
+      // Please use Strings, Numbers, or Bools for value types.
+      pendo.initialize({
+        apiKey: apiKey,
+        visitor: {
+          id: 'VISITOR-UNIQUE-ID' // Required if user is logged in
+          // email:        // Optional
+          // role:         // Optional
+          // You can add any additional visitor level key-values here,
+          // as long as it's not one of the above reserved names.
+        },
+        account: {
+          // id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
+          // name:         // Optional
+          // planLevel:    // Optional
+          // planPrice:    // Optional
+          // creationDate: // Optional
+          // You can add any additional account level key-values here,
+          // as long as it's not one of the above reserved names.
+        },
+        events: {
+          guidesLoaded: function () {
+            var translate = true;
+            var transFile =
+              'https://storage.googleapis.com/pro-serv-translations/demoTranslations/demoTransFile.json';
+
+            if (translate) {
+              console.log('Translation from Install');
+              var currentLanguage = getCurrentLanguage();
+              if (currentLanguage) {
+                pendoLogGuideLogic('Init translation set up');
+                pendoLogGuideLogic('Will I see you on soft route changes? Doubt it!');
+                pendo.ajax.get(transFile).then(function pendoPutTranslation(
+                  trans
+                ) {
+                  pendo._.each(pendo.guides, function (guide) {
+                    var guideTrans = trans.data[guide.id] || null;
+                    if (guideTrans) {
+                      var lang = guideTrans[currentLanguage] || null;
+                    };
+                    if (guideTrans && lang) {
+                      guide.name = lang['name'] || guide.name;
+                      // TODO skip launcher?
+                      pendo._.each(guide.steps, function addBeforeMethod(step, guide) {
+                        if (step.before) {
+                          step.before('render', function translateGuide() {
+                            // debugger
+                            var stepTrans = lang[step.id] || null;
+                            if (stepTrans) {
+                              pendo._.each(
+                                step.attributes.variables,
+                                function pendoTranslateVariable(
+                                  value,
+                                  key,
+                                  variables
+                                ) {
+                                  variables[key] =
+                                    pendoGettext(key, step, stepTrans) || variables[key];
+                                }
+                              );
+                            } else {
+                              pendoLogGuideLogic(
+                                'translations for step ' + step.id + ' not found'
+                              );
+                            }
+                          });
+                        }
+                        if (step.after) {
+                          step.after('render', function addAfterMethod() {
+                            var stepId = this.id;
+                            pendoLogGuideLogic('Adding hidden property to ' + stepId);
+                            pendo.dom('#_pendo_g_' + stepId).css({
+                              visibility: 'hidden'
+                            });
+                            setTimeout(function (step) {
+                              pendoLogGuideLogic('Removing hidden property from ' + stepId);
+                              pendo.dom('#_pendo_g_' + stepId).css({
+                                visibility: 'visible'
+                              });
+                            }, 500);
+                          });
+                        }
+                      }, guide);
+                    }
+                  }, currentLanguage);
+                  pendo.guideWidget.updateLauncherContent(
+                    pendo._.filter(pendo.guides, function (guide) {
+                      return guide.shouldBeAddedToLauncher();
+                    })
+                  );
+                  // TODO translate launcher text (more than just guide names)
+                  pendoLogGuideLogic('Setup Complete');
+                });
+              } else {
+                pendoLogGuideLogic('Lang not set');
+              }
+            }
+
+            function pendoLogGuideLogic(msg) {
+              guideId = 'GlobalJs';
+              pendo.log('Guide Logic: ' + guideId + ': ' + msg);
+            }
+
+            function getCurrentLanguage() {
+              return prompt('What Lanaguage (en, es, fr, de, jp)');
+            }
+
+            function pendoGettext(key, step, translation) {
+              // inspired by http://stackoverflow.com/questions/2400106/translation-in-javascript-like-gettext-in-php
+              pendoLogGuideLogic('Translating step ' + step.id + ' in ' + step.guide.id);
+              return (
+                translation[key] ||
+                (function () {
+                  pendoLogGuideLogic(
+                    'translation key not found: ' +
+                    key
+                  );
+                  return false;
+                })(this.guide, step, key)
+              );
+            }
+          }
+        }
+      });
+    })('f72d5f01-b371-4cad-7f04-df672c356b81');
+    console.log('Hello Pendo');
+  </script>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -66,5 +183,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
 </html>
