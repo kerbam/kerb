@@ -30,148 +30,173 @@
   <div id="root"></div>
   <script>
     (function (apiKey) {
-      (function (p, e, n, d, o) {
-        var v, w, x, y, z;
-        o = p[d] = p[d] || {};
-        o._q = [];
-        v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
-        for (w = 0, x = v.length; w < x; ++w)(function (m) {
-          o[m] = o[m] || function () {
-            o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(arguments, 0)));
-          };
-        })(v[w]);
-        y = e.createElement(n);
-        y.async = !0;
-        y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
-        z = e.getElementsByTagName(n)[0];
-        z.parentNode.insertBefore(y, z);
-      })(window, document, 'script', 'pendo');
-      // Call this whenever information about your visitors becomes available
-      // Please use Strings, Numbers, or Bools for value types.
-      pendo.initialize({
-        apiKey: apiKey,
-        visitor: {
-          id: 'VISITOR-UNIQUE-ID' // Required if user is logged in
-          // email:        // Optional
-          // role:         // Optional
-          // You can add any additional visitor level key-values here,
-          // as long as it's not one of the above reserved names.
-        },
-        account: {
-          // id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
-          // name:         // Optional
-          // planLevel:    // Optional
-          // planPrice:    // Optional
-          // creationDate: // Optional
-          // You can add any additional account level key-values here,
-          // as long as it's not one of the above reserved names.
-        },
-        events: {
-          guidesLoaded: function () {
-            var translate = true;
-            var transFile =
-              'https://storage.googleapis.com/pro-serv-translations/demoTranslations/demoTransFile.json';
-
-            if (translate) {
-              console.log('Translation from Install');
-              var currentLanguage = getCurrentLanguage();
-              if (currentLanguage) {
-                pendoLogGuideLogic('Init translation set up');
-                pendoLogGuideLogic('Will I see you on soft route changes? Doubt it!');
-                pendo.ajax.get(transFile).then(function pendoPutTranslation(
-                  trans
-                ) {
-                  pendo._.each(pendo.guides, function (guide) {
-                    var guideTrans = trans.data[guide.id] || null;
-                    if (guideTrans) {
-                      var lang = guideTrans[currentLanguage] || null;
-                    };
-                    if (guideTrans && lang) {
-                      guide.name = lang['name'] || guide.name;
-                      // TODO skip launcher?
-                      pendo._.each(guide.steps, function addBeforeMethod(step, guide) {
-                        if (step.before) {
-                          step.before('render', function translateGuide() {
-                            // debugger
-                            var stepTrans = lang[step.id] || null;
-                            if (stepTrans) {
-                              pendo._.each(
-                                step.attributes.variables,
-                                function pendoTranslateVariable(
-                                  value,
-                                  key,
-                                  variables
-                                ) {
-                                  variables[key] =
-                                    pendoGettext(key, step, stepTrans) || variables[key];
-                                }
-                              );
-                            } else {
-                              pendoLogGuideLogic(
-                                'translations for step ' + step.id + ' not found'
-                              );
-                            }
-                          });
-                        }
-                        if (step.after) {
-                          step.after('render', function addAfterMethod() {
-                            var stepId = this.id;
-                            pendoLogGuideLogic('Adding hidden property to ' + stepId);
-                            pendo.dom('#_pendo_g_' + stepId).css({
-                              visibility: 'hidden'
-                            });
-                            setTimeout(function (step) {
-                              pendoLogGuideLogic('Removing hidden property from ' + stepId);
-                              pendo.dom('#_pendo_g_' + stepId).css({
-                                visibility: 'visible'
-                              });
-                            }, 500);
-                          });
-                        }
-                      }, guide);
-                    }
-                  }, currentLanguage);
-                  pendo.guideWidget.updateLauncherContent(
-                    pendo._.filter(pendo.guides, function (guide) {
-                      return guide.shouldBeAddedToLauncher();
-                    })
-                  );
-                  // TODO translate launcher text (more than just guide names)
-                  pendoLogGuideLogic('Setup Complete');
-                });
-              } else {
-                pendoLogGuideLogic('Lang not set');
-              }
+        (function (p, e, n, d, o) {
+            var v, w, x, y, z;
+            o = p[d] = p[d] || {};
+            o._q = [];
+            v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
+            for (w = 0, x = v.length; w < x; ++w)(function (m) {
+                o[m] = o[m] || function () {
+                    o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(arguments, 0)));
+                };
+            })(v[w]);
+            y = e.createElement(n);
+            y.async = !0;
+            y.src = '/dist/pendo.jsonp.js';
+            z = e.getElementsByTagName(n)[0];
+            z.parentNode.insertBefore(y, z);
+        })(window, document, 'script', 'pendo');
+        // Call this whenever information about your visitors becomes available
+        // Please use Strings, Numbers, or Bools for value types.
+        pendo.initialize({
+            apiKey: apiKey,
+            visitor: {
+                id: 'VISITOR-UNIQUE-ID' // Required if user is logged in
+                // email:        // Optional
+                // role:         // Optional
+                // You can add any additional visitor level key-values here,
+                // as long as it's not one of the above reserved names.
+            },
+            account: {
+                // id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
+                // name:         // Optional
+                // planLevel:    // Optional
+                // planPrice:    // Optional
+                // creationDate: // Optional
+                // You can add any additional account level key-values here,
+                // as long as it's not one of the above reserved names.
+            },
+            events: {
+                guidesLoaded: function () {
+                    translate(pendo, {
+                        launguage: getCurrentLanguage(),
+                        url: '127.0.0.1:3000/demoTransFile.json'
+                    });
+                }
             }
-
-            function pendoLogGuideLogic(msg) {
-              guideId = 'GlobalJs';
-              pendo.log('Guide Logic: ' + guideId + ': ' + msg);
-            }
-
-            function getCurrentLanguage() {
-              return prompt('What Lanaguage (en, es, fr, de, jp)');
-            }
-
-            function pendoGettext(key, step, translation) {
-              // inspired by http://stackoverflow.com/questions/2400106/translation-in-javascript-like-gettext-in-php
-              pendoLogGuideLogic('Translating step ' + step.id + ' in ' + step.guide.id);
-              return (
-                translation[key] ||
-                (function () {
-                  pendoLogGuideLogic(
-                    'translation key not found: ' +
-                    key
-                  );
-                  return false;
-                })(this.guide, step, key)
-              );
-            }
-          }
-        }
-      });
+        });
     })('f72d5f01-b371-4cad-7f04-df672c356b81');
-    console.log('Hello Pendo');
+
+    function getCurrentLanguage () {
+        return prompt('What Lanaguage (en, es, fr, de, jp)');
+    }
+
+    function translate (pendo, config) {
+        var translation;
+        var translationPromise;
+
+        translateGuides();
+        translateLauncher();
+
+        function translateGuides () {
+            pendo._.each(pendo.guides, function (guide) {
+                pendo._.each(guide.steps, function (step) {
+                    loadTranslationBeforeShow(step);
+                    translateVariablesBeforeRender(step);
+                });
+            });
+        }
+
+        function translateLauncher () {
+            loadTranslation().then(function () {
+                translateGuideNames();
+                pendo.guideWidget.updateLauncherContent(
+                    pendo._.filter(pendo.guides, function (guide) {
+                        return guide.shouldBeAddedToLauncher();
+                    })
+                );
+            });
+        }
+
+        function translateGuideNames () {
+            pendo._.each(pendo.guides, function (guide) {
+                var lang = getGuideTranslation(guide.id);
+                if (!lang) return;
+                guide.name = lang.name || guide.name;
+            });
+        }
+
+        function loadTranslationBeforeShow (step) {
+            if (!step.before) return;
+
+            var cancelled = false;
+
+            step.before('hide', function beforeHide () {
+                cancelled = true;
+            });
+
+            step.before('show', function beforeShow (reason) {
+                cancelled = false;
+
+                if (translation) return true;
+
+                step.lock();
+
+                loadTranslation().then(function () {
+                    step.unlock();
+                    if (cancelled) return;
+                    step.show(reason);
+                    if (!step.isShown()) {
+                        step.hide();
+                    }
+                }, function () {
+                    step.unlock();
+                });
+
+                return false; // Prevent the guide from showing until the translation loads
+            });
+        }
+
+        function translateVariablesBeforeRender (step) {
+            if (!step.before) return;
+
+            step.before('render', function translateGuide () {
+                var stepTrans = getStepTranslation(step);
+                if (!stepTrans) return;
+
+                pendo._.each(
+                    step.attributes.variables,
+                    function pendoTranslateVariable (
+                        value,
+                        key,
+                        variables
+                    ) {
+                        variables[key] =
+                            pendoGettext(key, step, stepTrans) || variables[key];
+                    }
+                );
+            });
+        }
+
+        function loadTranslation () {
+            if (!translationPromise) {
+                translationPromise = pendo.ajax.get(config.url).then(function (translationResponse) {
+                    translation = translationResponse.data;
+                    return translation;
+                });
+            }
+            return translationPromise;
+        }
+
+        function getGuideTranslation (guideId) {
+            if (!translation) return;
+            return (translation[guideId] || {})[config.launguage];
+        }
+
+        function getStepTranslation (step) {
+            return (getGuideTranslation(step.guideId) || {})[step.id];
+        }
+
+        function pendoGettext (key, step, stepTranslation) {
+            // inspired by http://stackoverflow.com/questions/2400106/translation-in-javascript-like-gettext-in-php
+            return (
+                stepTranslation[key] ||
+                (function () {
+                    return false;
+                })(this.guide, step, key)
+            );
+        }
+    }
   </script>
   <!--
       This HTML file is a template.
