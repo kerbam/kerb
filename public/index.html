@@ -2,16 +2,16 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="theme-color" content="#000000">
-  <!--
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-  <!--
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -20,185 +20,188 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <title>React App</title>
+    <title>React App</title>
 </head>
 
 <body>
-  <noscript>
-    You need to enable JavaScript to run this app.
-  </noscript>
-  <div id="root"></div>
-  <script>
-    (function (apiKey) {
-        (function (p, e, n, d, o) {
-            var v, w, x, y, z;
-            o = p[d] = p[d] || {};
-            o._q = [];
-            v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
-            for (w = 0, x = v.length; w < x; ++w)(function (m) {
-                o[m] = o[m] || function () {
-                    o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(arguments, 0)));
-                };
-            })(v[w]);
-            y = e.createElement(n);
-            y.async = !0;
-            y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
-            z = e.getElementsByTagName(n)[0];
-            z.parentNode.insertBefore(y, z);
-        })(window, document, 'script', 'pendo');
-        // Call this whenever information about your visitors becomes available
-        // Please use Strings, Numbers, or Bools for value types.
-        pendo.initialize({
-            apiKey: apiKey,
-            visitor: {
-                id: 'VISITOR-UNIQUE-ID' // Required if user is logged in
-                // email:        // Optional
-                // role:         // Optional
-                // You can add any additional visitor level key-values here,
-                // as long as it's not one of the above reserved names.
-            },
-            account: {
-                // id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
-                // name:         // Optional
-                // planLevel:    // Optional
-                // planPrice:    // Optional
-                // creationDate: // Optional
-                // You can add any additional account level key-values here,
-                // as long as it's not one of the above reserved names.
-            },
-            events: {
-                guidesLoaded: function () {
-                    translate(pendo, {
-                        launguage: getCurrentLanguage(),
-                        url: '127.0.0.1:3000/demoTransFile.json'
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <script>
+        (function () {
+            (function (apiKey) {
+                (function (p, e, n, d, o) {
+                    var v, w, x, y, z;
+                    o = p[d] = p[d] || {};
+                    o._q = [];
+                    v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
+                    for (w = 0, x = v.length; w < x; ++w)(function (m) {
+                        o[m] = o[m] || function () {
+                            o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(
+                                arguments, 0)));
+                        };
+                    })(v[w]);
+                    y = e.createElement(n);
+                    y.async = !0;
+                    y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
+                    z = e.getElementsByTagName(n)[0];
+                    z.parentNode.insertBefore(y, z);
+                })(window, document, 'script', 'pendo');
+                // Call this whenever information about your visitors becomes available
+                // Please use Strings, Numbers, or Bools for value types.
+                pendo.initialize({
+                    apiKey: apiKey,
+                    visitor: {
+                        id: 'VISITOR-UNIQUE-ID' // Required if user is logged in
+                        // email:        // Optional
+                        // role:         // Optional
+                        // You can add any additional visitor level key-values here,
+                        // as long as it's not one of the above reserved names.
+                    },
+                    account: {
+                        // id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
+                        // name:         // Optional
+                        // planLevel:    // Optional
+                        // planPrice:    // Optional
+                        // creationDate: // Optional
+                        // You can add any additional account level key-values here,
+                        // as long as it's not one of the above reserved names.
+                    },
+                    events: {
+                        guidesLoaded: function () {
+                            translate(pendo, {
+                                launguage: getCurrentLanguage(),
+                                url: '127.0.0.1:3000/demoTransFile.json'
+                            });
+                        }
+                    }
+                });
+            })('f72d5f01-b371-4cad-7f04-df672c356b81');
+
+            function getCurrentLanguage() {
+                return prompt('What Lanaguage (en, es, fr, de, jp)');
+            }
+
+            function translate(pendo, config) {
+                var translation;
+                var translationPromise;
+
+                translateGuides();
+                translateLauncher();
+
+                function translateGuides() {
+                    pendo._.each(pendo.guides, function (guide) {
+                        pendo._.each(guide.steps, function (step) {
+                            loadTranslationBeforeShow(step);
+                            translateVariablesBeforeRender(step);
+                        });
                     });
                 }
-            }
-        });
-    })('f72d5f01-b371-4cad-7f04-df672c356b81');
 
-    function getCurrentLanguage () {
-        return prompt('What Lanaguage (en, es, fr, de, jp)');
-    }
+                function translateLauncher() {
+                    loadTranslation().then(function () {
+                        translateGuideNames();
+                        pendo.guideWidget.updateLauncherContent(
+                            pendo._.filter(pendo.guides, function (guide) {
+                                return guide.shouldBeAddedToLauncher();
+                            })
+                        );
+                    });
+                }
 
-    function translate (pendo, config) {
-        var translation;
-        var translationPromise;
+                function translateGuideNames() {
+                    pendo._.each(pendo.guides, function (guide) {
+                        var lang = getGuideTranslation(guide.id);
+                        if (!lang) return;
+                        guide.name = lang.name || guide.name;
+                    });
+                }
 
-        translateGuides();
-        translateLauncher();
+                function loadTranslationBeforeShow(step) {
+                    if (!step.before) return;
 
-        function translateGuides () {
-            pendo._.each(pendo.guides, function (guide) {
-                pendo._.each(guide.steps, function (step) {
-                    loadTranslationBeforeShow(step);
-                    translateVariablesBeforeRender(step);
-                });
-            });
-        }
+                    var cancelled = false;
 
-        function translateLauncher () {
-            loadTranslation().then(function () {
-                translateGuideNames();
-                pendo.guideWidget.updateLauncherContent(
-                    pendo._.filter(pendo.guides, function (guide) {
-                        return guide.shouldBeAddedToLauncher();
-                    })
-                );
-            });
-        }
+                    step.before('hide', function beforeHide() {
+                        cancelled = true;
+                    });
 
-        function translateGuideNames () {
-            pendo._.each(pendo.guides, function (guide) {
-                var lang = getGuideTranslation(guide.id);
-                if (!lang) return;
-                guide.name = lang.name || guide.name;
-            });
-        }
+                    step.before('show', function beforeShow(reason) {
+                        cancelled = false;
 
-        function loadTranslationBeforeShow (step) {
-            if (!step.before) return;
+                        if (translation) return true;
 
-            var cancelled = false;
+                        step.lock();
 
-            step.before('hide', function beforeHide () {
-                cancelled = true;
-            });
+                        loadTranslation().then(function () {
+                            step.unlock();
+                            if (cancelled) return;
+                            step.show(reason);
+                            if (!step.isShown()) {
+                                step.hide();
+                            }
+                        }, function () {
+                            step.unlock();
+                        });
 
-            step.before('show', function beforeShow (reason) {
-                cancelled = false;
+                        return false; // Prevent the guide from showing until the translation loads
+                    });
+                }
 
-                if (translation) return true;
+                function translateVariablesBeforeRender(step) {
+                    if (!step.before) return;
 
-                step.lock();
+                    step.before('render', function translateGuide() {
+                        var stepTrans = getStepTranslation(step);
+                        if (!stepTrans) return;
 
-                loadTranslation().then(function () {
-                    step.unlock();
-                    if (cancelled) return;
-                    step.show(reason);
-                    if (!step.isShown()) {
-                        step.hide();
+                        pendo._.each(
+                            step.attributes.variables,
+                            function pendoTranslateVariable(
+                                value,
+                                key,
+                                variables
+                            ) {
+                                variables[key] =
+                                    pendoGettext(key, step, stepTrans) || variables[key];
+                            }
+                        );
+                    });
+                }
+
+                function loadTranslation() {
+                    if (!translationPromise) {
+                        translationPromise = pendo.ajax.get(config.url).then(function (translationResponse) {
+                            translation = translationResponse.data;
+                            return translation;
+                        });
                     }
-                }, function () {
-                    step.unlock();
-                });
+                    return translationPromise;
+                }
 
-                return false; // Prevent the guide from showing until the translation loads
-            });
-        }
+                function getGuideTranslation(guideId) {
+                    if (!translation) return;
+                    return (translation[guideId] || {})[config.launguage];
+                }
 
-        function translateVariablesBeforeRender (step) {
-            if (!step.before) return;
+                function getStepTranslation(step) {
+                    return (getGuideTranslation(step.guideId) || {})[step.id];
+                }
 
-            step.before('render', function translateGuide () {
-                var stepTrans = getStepTranslation(step);
-                if (!stepTrans) return;
-
-                pendo._.each(
-                    step.attributes.variables,
-                    function pendoTranslateVariable (
-                        value,
-                        key,
-                        variables
-                    ) {
-                        variables[key] =
-                            pendoGettext(key, step, stepTrans) || variables[key];
-                    }
-                );
-            });
-        }
-
-        function loadTranslation () {
-            if (!translationPromise) {
-                translationPromise = pendo.ajax.get(config.url).then(function (translationResponse) {
-                    translation = translationResponse.data;
-                    return translation;
-                });
+                function pendoGettext(key, step, stepTranslation) {
+                    // inspired by http://stackoverflow.com/questions/2400106/translation-in-javascript-like-gettext-in-php
+                    return (
+                        stepTranslation[key] ||
+                        (function () {
+                            return false;
+                        })(this.guide, step, key)
+                    );
+                }
             }
-            return translationPromise;
-        }
-
-        function getGuideTranslation (guideId) {
-            if (!translation) return;
-            return (translation[guideId] || {})[config.launguage];
-        }
-
-        function getStepTranslation (step) {
-            return (getGuideTranslation(step.guideId) || {})[step.id];
-        }
-
-        function pendoGettext (key, step, stepTranslation) {
-            // inspired by http://stackoverflow.com/questions/2400106/translation-in-javascript-like-gettext-in-php
-            return (
-                stepTranslation[key] ||
-                (function () {
-                    return false;
-                })(this.guide, step, key)
-            );
-        }
-    }
-  </script>
-  <!--
+        })();
+    </script>
+    <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -209,4 +212,5 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
+
 </html>
