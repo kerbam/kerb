@@ -71,7 +71,7 @@
                     events: {
                         guidesLoaded: function () {
                             translate(pendo, {
-                                launguage: getCurrentLanguage(),
+                                language: getCurrentLanguage(),
                                 url: 'http://127.0.0.1:3000/demoTransFile.json'
                             });
                         }
@@ -84,8 +84,8 @@
             }
 
             function translate(pendo, config) {
-                var translation;
-                var translationPromise;
+                var translation = {};
+                var translationPromise = {};
 
                 translateGuides();
                 translateLauncher();
@@ -100,13 +100,14 @@
                 }
 
                 function translateLauncher() {
-                    loadTranslation().then(function () {
-                        translateGuideNames();
-                        pendo.guideWidget.updateLauncherContent(
-                            pendo._.filter(pendo.guides, function (guide) {
+                    var guidesForLauncher = pendo._.filter(pendo.guides, function (guide) {
                                 return guide.shouldBeAddedToLauncher();
-                            })
-                        );
+                            });
+                    pendo._.each(guidesForLauncher, function (guide) {
+                        loadTranslation(guide.id).then(function () {
+                            translateGuideNames();
+                            pendo.guideWidget.updateLauncherContent(guidesForLauncher);
+                        });
                     });
                 }
 
@@ -122,6 +123,7 @@
                     if (!step.before) return;
 
                     var cancelled = false;
+                    var done = false;
 
                     step.before('hide', function beforeHide() {
                         cancelled = true;
@@ -130,19 +132,27 @@
                     step.before('show', function beforeShow(reason) {
                         cancelled = false;
 
-                        if (translation) return true;
+                        if (done) return true;
+                        if (translation[step.guideId]) return true;
 
                         step.lock();
 
-                        loadTranslation().then(function () {
+                        loadTranslation(step.guideId).then(function () {
                             step.unlock();
                             if (cancelled) return;
+                            done = true;
                             step.show(reason);
                             if (!step.isShown()) {
                                 step.hide();
                             }
-                        }, function () {
+                        }).fail(function () {
                             step.unlock();
+                            if (cancelled) return;
+                            done = true;
+                            step.show(reason);
+                            if (!step.isShown()) {
+                                step.hide();
+                            }
                         });
 
                         return false; // Prevent the guide from showing until the translation loads
@@ -170,19 +180,22 @@
                     });
                 }
 
-                function loadTranslation() {
-                    if (!translationPromise) {
-                        translationPromise = pendo.ajax.get(config.url).then(function (translationResponse) {
-                            translation = translationResponse.data;
-                            return translation;
-                        });
+                function loadTranslation(guideId) {
+                    if (guideId) {
+                        var url = 'https://storage.googleapis.com/pro-serv-translations/' + guideId + '.json'
+                        if (!translationPromise[guideId]) {
+                            translationPromise[guideId] = pendo.ajax.get(url).then(function (translationResponse) {
+                                translation[guideId] = translationResponse.data;
+                                return translation[guideId];
+                            });
+                        }
                     }
-                    return translationPromise;
+                    return translationPromise[guideId];
                 }
 
                 function getGuideTranslation(guideId) {
-                    if (!translation) return;
-                    return (translation[guideId] || {})[config.launguage];
+                    if (!translation[guideId]) return;
+                    return (translation[guideId] || {})[config.language];
                 }
 
                 function getStepTranslation(step) {
