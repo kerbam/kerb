@@ -105,18 +105,17 @@
                             });
                     pendo._.each(guidesForLauncher, function (guide) {
                         loadTranslation(guide.id).then(function () {
-                            translateGuideNames();
+                            translateGuideNames(guide.id);
                             pendo.guideWidget.updateLauncherContent(guidesForLauncher);
                         });
                     });
                 }
 
-                function translateGuideNames() {
-                    pendo._.each(pendo.guides, function (guide) {
-                        var lang = getGuideTranslation(guide.id);
-                        if (!lang) return;
-                        guide.name = lang.name || guide.name;
-                    });
+                function translateGuideNames(guideId) {
+                    var guide = pendo.findGuideById(guideId);
+                    var lang = getGuideTranslation(guideId);
+                    if (!lang) return;
+                    guide.name = lang.name || guide.name;
                 }
 
                 function loadTranslationBeforeShow(step) {
