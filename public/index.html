@@ -68,8 +68,9 @@
                         analytics.SNIPPET_VERSION = '4.1.0';
                         analytics.load('sjOJzcd1QkqTq3kCkqaP4mPgFuoGDbGa');
                         analytics.page();
-                        analytics.identify('SEGMENT_TESTING', {
-                            isSegment: true
+                        analytics.identify('_PENDO_T_', {
+                            isSegment: true,
+                            optOut: true
                         });
                     }
             })();
