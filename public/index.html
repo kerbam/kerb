@@ -117,9 +117,11 @@
         function ready(fn) {
             if (document.readyState != 'loading') {
                 fn();
+                console.log('hidding');
                 window.zE.hide();
             } else {
                 document.addEventListener('DOMContentLoaded', fn);
+                console.log('adding event listener');
                 window.zE.hide();
             }
         }
