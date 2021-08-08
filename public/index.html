@@ -100,7 +100,8 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <!-- Start of mattkerb-zendesk Zendesk Widget script -->
-    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=19a1898e-ab42-405b-9836-36668f84f0d1"> </script>
+    <script id="ze-snippet"
+        src="https://static.zdassets.com/ekr/snippet.js?key=19a1898e-ab42-405b-9836-36668f84f0d1"> </script>
     <!-- End of mattkerb-zendesk Zendesk Widget script -->
     <title>React App</title>
 </head>
@@ -114,21 +115,12 @@
         You need to enable JavaScript to run this app.
     </noscript>
     <script>
-        function ready(fn) {
-            if (document.readyState != 'loading') {
-                fn();
-                console.log('hidding');
-                zE('webWidget', 'hide');
-                zE('webWidget:on', 'open', function() {    console.log('The widget has been opened!');  });
-                zE('webWidget:on', 'close', function() {    console.log('The widget has been closed!');  });
-            } else {
-                document.addEventListener('DOMContentLoaded', fn);
-                console.log('adding event listener');
-                zE('webWidget', 'hide');
-                zE('webWidget:on', 'open', function() {    console.log('The widget has been opened!');  });
-                zE('webWidget:on', 'close', function() {    console.log('The widget has been closed!');  });
-            }
-        }
+
+        console.log('hidding');
+        zE('webWidget', 'hide');
+        zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
+        zE('webWidget:on', 'close', function () { console.log('The widget has been closed!'); });
+
     </script>
     <div id="root"></div>
     <script>
@@ -330,5 +322,6 @@
     <!-- <script id="ze-snippet"
         src="https://static.zdassets.com/ekr/snippet.js?key=3df4986d-90c3-4d55-a912-f8122d8b111e"></script> -->
     <!-- End of  Zendesk Widget script -->
-    </html>
+
+</html>
 </body>
