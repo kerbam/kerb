@@ -119,10 +119,14 @@
                 fn();
                 console.log('hidding');
                 zE('webWidget', 'hide');
+                zE('webWidget:on', 'open', function() {    console.log('The widget has been opened!');  });
+                zE('webWidget:on', 'close', function() {    console.log('The widget has been closed!');  });
             } else {
                 document.addEventListener('DOMContentLoaded', fn);
                 console.log('adding event listener');
                 zE('webWidget', 'hide');
+                zE('webWidget:on', 'open', function() {    console.log('The widget has been opened!');  });
+                zE('webWidget:on', 'close', function() {    console.log('The widget has been closed!');  });
             }
         }
     </script>
