@@ -118,11 +118,11 @@
             if (document.readyState != 'loading') {
                 fn();
                 console.log('hidding');
-                window.zE.hide();
+                zE('webWidget', 'hide');
             } else {
                 document.addEventListener('DOMContentLoaded', fn);
                 console.log('adding event listener');
-                window.zE.hide();
+                zE('webWidget', 'hide');
             }
         }
     </script>
