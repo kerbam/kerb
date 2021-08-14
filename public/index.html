@@ -156,12 +156,27 @@
                         // as long as it's not one of the above reserved names.
                     },
                     events: {
-                        /* guidesLoaded: function () {
-                            translate(pendo, {
+                        guidesLoaded: function () {
+                            /*translate(pendo, {
                                 language: getCurrentLanguage(),
                                 url: 'http://127.0.0.1:3000/demoTransFile.json'
+                            });*/
+                            window.zE('webWidget', 'updateSettings', {
+                                'webWidget': {
+                                    'helpCenter': {
+                                        'suppress': false
+                                    }
+                                },
+                                'position': {
+                                    'vertical': 'bottom',
+                                    'horizontal': 'left'
+                                }
                             });
-                        } */
+                            window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
+                            window.zE('webWidget:on', 'close', function () {
+                                window.zE('webWidget', 'hide');
+                            });
+                        }
                     }
                 });
             })('a2d9f4cd-4232-4b44-510a-9a8837a517f9');
@@ -311,27 +326,8 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
-
         console.log('hidding');
         window.zE('webWidget', 'hide');
-        pendo._.defer(function () {
-            window.zE('webWidget', 'updateSettings', {
-                'webWidget': {
-                    'helpCenter': {
-                        'suppress': false
-                    }
-                },
-                'position': {
-                    'vertical': 'bottom',
-                    'horizontal': 'left'
-                }
-            });
-            window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
-            window.zE('webWidget:on', 'close', function () {
-                window.zE('webWidget', 'hide');
-            });
-        })
-
     </script>
 
 </html>
