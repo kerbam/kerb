@@ -117,9 +117,19 @@
     <script>
 
         console.log('hidding');
-        zE('webWidget', 'hide');
-        zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
-        zE('webWidget:on', 'close', function () { console.log('The widget has been closed!'); });
+        window.zE('webWidget', 'hide');
+        window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
+        window.zE('webWidget:on', 'close', function () {
+            window.zE('webWidget', 'hide');
+        });
+        window.zE('webWidget', 'updateSettings', {
+            'webWidget': {
+                // always hide ZD native help-center
+                'helpCenter': {
+                    'suppress': false
+                }
+            }
+        });
 
     </script>
     <div id="root"></div>
