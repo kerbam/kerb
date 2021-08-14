@@ -118,17 +118,20 @@
 
         console.log('hidding');
         window.zE('webWidget', 'hide');
-        window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
-        window.zE('webWidget:on', 'close', function () {
-            window.zE('webWidget', 'hide');
-        });
         window.zE('webWidget', 'updateSettings', {
             'webWidget': {
-                // always hide ZD native help-center
                 'helpCenter': {
                     'suppress': false
                 }
+            },
+            'position': {
+                'vertical': 'bottom',
+                'horizontal': 'left'
             }
+        });
+        window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
+        window.zE('webWidget:on', 'close', function () {
+            window.zE('webWidget', 'hide');
         });
 
     </script>
