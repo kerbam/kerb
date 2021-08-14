@@ -314,22 +314,23 @@
 
         console.log('hidding');
         window.zE('webWidget', 'hide');
-        window.zE('webWidget', 'updateSettings', {
-            'webWidget': {
-                'helpCenter': {
-                    'suppress': false
+        pendo._.defer(function () {
+            window.zE('webWidget', 'updateSettings', {
+                'webWidget': {
+                    'helpCenter': {
+                        'suppress': false
+                    }
+                },
+                'position': {
+                    'vertical': 'bottom',
+                    'horizontal': 'left'
                 }
-            },
-            'position': {
-                'vertical': 'bottom',
-                'horizontal': 'left'
-            }
-        });
-        window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
-        window.zE('webWidget:on', 'close', function () {
-            window.zE('webWidget', 'hide');
-        });
-
+            });
+            window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
+            window.zE('webWidget:on', 'close', function () {
+                window.zE('webWidget', 'hide');
+            });
+        })
 
     </script>
 
