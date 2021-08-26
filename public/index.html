@@ -137,7 +137,48 @@
                 })(window, document, 'script', 'pendo');
                 // Call this whenever information about your visitors becomes available
                 // Please use Strings, Numbers, or Bools for value types.
-                
+                pendo.initialize({
+                    apiKey: apiKey,
+                    visitor: {
+                        id: 'VISITOR-UNIQUE-ID' // Required if user is logged in
+                        // email:        // Optional
+                        // role:         // Optional
+                        // You can add any additional visitor level key-values here,
+                        // as long as it's not one of the above reserved names.
+                    },
+                    account: {
+                        // id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
+                        // name:         // Optional
+                        // planLevel:    // Optional
+                        // planPrice:    // Optional
+                        // creationDate: // Optional
+                        // You can add any additional account level key-values here,
+                        // as long as it's not one of the above reserved names.
+                    },
+                    events: {
+                        guidesLoaded: function () {
+                            /*translate(pendo, {
+                                language: getCurrentLanguage(),
+                                url: 'http://127.0.0.1:3000/demoTransFile.json'
+                            });*/
+                            window.zE('webWidget', 'updateSettings', {
+                                'webWidget': {
+                                    'helpCenter': {
+                                        'suppress': false
+                                    }
+                                },
+                                'position': {
+                                    'vertical': 'bottom',
+                                    'horizontal': 'left'
+                                }
+                            });
+                            window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
+                            window.zE('webWidget:on', 'close', function () {
+                                window.zE('webWidget', 'hide');
+                            });
+                        }
+                    }
+                });
             })('f72d5f01-b371-4cad-7f04-df672c356b81');
 
             function getCurrentLanguage() {
