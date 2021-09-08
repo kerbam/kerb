@@ -100,7 +100,8 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <!-- Start of d3v-pendosupport Zendesk Widget script -->
-    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=59a3b2ed-ad56-41e9-b359-8013a5113b1a"> </script>
+    <script id="ze-snippet"
+        src="https://static.zdassets.com/ekr/snippet.js?key=59a3b2ed-ad56-41e9-b359-8013a5113b1a"> </script>
     <!-- End of d3v-pendosupport Zendesk Widget script -->
     <title>React App</title>
 </head>
@@ -160,7 +161,7 @@
                                 language: getCurrentLanguage(),
                                 url: 'http://127.0.0.1:3000/demoTransFile.json'
                             });*/
-                           window.zE('webWidget', 'updateSettings', {
+                            window.zE('webWidget', 'updateSettings', {
                                 'webWidget': {
                                     'helpCenter': {
                                         'suppress': false
@@ -525,7 +526,19 @@
         console.log('hidding');
         window.zE('webWidget', 'hide');
     </script>
+    <link rel="stylesheet" href="https://pendomattkerb.helpjuice.com/swifty.css">
+    <script src="https://pendomattkerb.helpjuice.com/swifty.js"></script>
+    <script>
+        window.helpjuice_account_url = 'https://pendomattkerb.helpjuice.com';
+        window.helpjuice_contact_us_url = 'https://pendomattkerb.helpjuice.com/contact-us';
+        window.helpjuiceSwiftyConfig = {
+            widgetPosition: 'bottomLeft',
+            themeColor: '#126CFF',
+            linkColor: '#126CFF'
+        }
+        window.helpjuiceSwiftyUrlMap = {
+        }
+    </script>
 
 </html>
 </body>
-
