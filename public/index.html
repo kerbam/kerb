@@ -526,7 +526,7 @@
         console.log('hidding');
         window.zE('webWidget', 'hide');
     </script>
-    <link rel="stylesheet" href="https://pendomattkerb.helpjuice.com/swifty.css">
+    <!--<link rel="stylesheet" href="https://pendomattkerb.helpjuice.com/swifty.css">
     <script src="https://pendomattkerb.helpjuice.com/swifty.js"></script>
     <script>
         window.helpjuice_account_url = 'https://pendomattkerb.helpjuice.com';
@@ -538,7 +538,18 @@
         }
         window.helpjuiceSwiftyUrlMap = {
         }
-    </script>
+    </script>-->
 
 </html>
 </body>
+
+<!--(function resourceCenterOpenURL() {
+    if (!pendo.designerEnabled) {
+        alert('lp code')
+        pendo.BuildingBlocks.BuildingBlockResourceCenter.dismissResourceCenter();
+		pendo.dom('.LPMcontainer.LPMoverlay')[0].click();
+        step.eventRouter.eventable.trigger('pendoEvent', {
+            action: 'returnToResourceCenterHome'
+        });
+    }
+ })();
