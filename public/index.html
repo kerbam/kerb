@@ -159,10 +159,10 @@
                 events: {
                     ready: function () {
                         //first thing we do is set up html templates for the new badge - these can be moved if preferred
-                        pendo.secondaryHomeViewBubble = '<div id="pendo-secondary-home-view-bubble" class="_pendo-secondary-home-view-bubble" style="position: absolute; border-radius: 20px; height: 26px; line-height: 0px; padding: 0px 10px; right: 20px; top: 50%; margin-top: -14px; box-sizing: content-box; display: block;"><div id="pendo-secondary-home-view-count" style="display: inline-block; vertical-align: middle; line-height: 26px; font-weight: 400; font-family: inherit; color: rgb(255, 255, 255); white-space: pre-wrap;"></div></div>';
-                        pendo.secondaryRCBadgeTemplate = '<div id="pendo-secondary-badge-bubble" class="pendo-resource-center-badge-secondary-notification-bubble" style="position: absolute; border-radius: 20px; line-height: 0px; height: 26px; box-sizing: content-box; top: -2px; left: -12px; padding: 0px 10px; margin-left: 0px; margin-top: 0px;">' +
+                        pendo.secondaryHomeViewBubble = '<div id="pendo-secondary-home-view-bubble" class="_pendo-secondary-home-view-bubble" style="background-color: black; position: absolute; border-radius: 20px; height: 26px; line-height: 0px; padding: 0px 10px; right: 20px; top: 50%; margin-top: -14px; box-sizing: content-box; display: block;"><div id="pendo-secondary-home-view-count" style="display: inline-block; vertical-align: middle; line-height: 26px; font-weight: 400; font-family: inherit; color: rgb(255, 255, 255); white-space: pre-wrap;"></div></div>';
+                        pendo.secondaryRCBadgeTemplate = '<div id="pendo-secondary-badge-bubble" class="pendo-resource-center-badge-secondary-notification-bubble" style="background-color: black; position: absolute; border-radius: 20px; line-height: 0px; height: 26px; box-sizing: content-box; top: -2px; left: -12px; padding: 0px 10px; margin-left: 0px; margin-top: 0px;">' +
                             '<div class="pendo-secondary-notification-bubble-unread-count" style="font-weight: 400; font-family: inherit; height: 100%; display: inline-block; line-height: 26px; vertical-align: middle; color: rgb(255, 255, 255); white-space: pre-wrap;"></div>' + '</div> ';
-                        pendo.backUpPulseAnimation = '<style id="pendo-secondary-resource-center-bubble-animation">@keyframes pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.6) } } .pendo-resource-center-badge-secondary-notification-bubble::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 100%; z-index: -1; animation: pulse 2s infinite; will-change: transform; }</style>';
+                        pendo.backUpPulseAnimation = '<style id="pendo-secondary-resource-center-bubble-animation">@keyframes pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.6) } } .pendo-resource-center-badge-secondary-notification-bubble::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 100%; z-index: -1; animation: pulse 2s infinite; will-change: transform; background-color: black;}</style>';
                         //This line must be updated to hold the module id of the rc module you want to draw a Homeview badge on
                         pendo.customModuleSelector = '[data-pendo-module-guide-id="3TU01e0-Ue6jSWLuJFd5_JnqkGg"] > ._pendo-text-link > ._pendo-row > .pendo-mock-flexbox-row > .pendo-mock-flexbox-element'
                         pendo.bodyObserver = null;
@@ -173,6 +173,9 @@
                         pendo.alerts = 0;
                         // once Pendo is ready we add a mutation listener to keep track of what Pendo is doing
                         pendo.addBodyMutationListener();
+                    },
+                    guidesLoaded: function() {
+                        pendo.setAlerts(pendo.BuildingBlocks.BuildingBlockResourceCenter.getResourceCenter().attributes.notifications.totalUnseenCount);
                     }
                 }
             });
