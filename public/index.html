@@ -175,6 +175,7 @@
                         pendo.addBodyMutationListener();
                     },
                     guidesLoaded: function() {
+                        console.log('w/ debugger')
                         debugger;
                         pendo.setAlerts(pendo.BuildingBlocks.BuildingBlockResourceCenter.getResourceCenter().attributes.notifications.totalUnseenCount);
                     }
