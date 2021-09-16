@@ -161,13 +161,22 @@
                                 language: getCurrentLanguage(),
                                 url: 'http://127.0.0.1:3000/demoTransFile.json'
                             });*/
-                            window.zE('webWidget', 'updateSettings', {
+                            window.zE('webWidget', 'updateSettings',
+                                {
+                                    'webWidget': {
+                                        'answerBot': {
+                                            'suppress': false
+                                        },
+                                        'helpCenter': {
+                                            'suppress': false
+                                        }
+                                    },
                                 
                                 'position': {
-                                    'vertical': 'bottom',
-                                    'horizontal': 'left'
-                                }
-                            });
+                                        'vertical': 'bottom',
+                                        'horizontal': 'left'
+                                    }
+                                });
                             window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
                             window.zE('webWidget:on', 'close', function () {
                                 window.zE('webWidget', 'hide');
