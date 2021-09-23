@@ -100,8 +100,8 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <!-- Start of d3v-pendosupport Zendesk Widget script -->
-    <script id="ze-snippet"
-        src="https://static.zdassets.com/ekr/snippet.js?key=9b797bea-51e0-4175-a455-006a3df50290"> </script>
+    <!-- <script id="ze-snippet"
+        src="https://static.zdassets.com/ekr/snippet.js?key=9b797bea-51e0-4175-a455-006a3df50290"> </script> -->
     <!-- End of d3v-pendosupport Zendesk Widget script -->
     <title>React App</title>
 </head>
@@ -162,26 +162,26 @@
                                 language: getCurrentLanguage(),
                                 url: 'http://127.0.0.1:3000/demoTransFile.json'
                             });*/
-                            window.zE('webWidget', 'updateSettings',
-                                {
-                                    'webWidget': {
-                                        'answerBot': {
-                                            'suppress': false
-                                        },
-                                        'helpCenter': {
-                                            'suppress': false
-                                        }
-                                    },
+                            // window.zE('webWidget', 'updateSettings',
+                            //     {
+                            //         'webWidget': {
+                            //             'answerBot': {
+                            //                 'suppress': false
+                            //             },
+                            //             'helpCenter': {
+                            //                 'suppress': false
+                            //             }
+                            //         },
                                 
-                                'position': {
-                                        'vertical': 'bottom',
-                                        'horizontal': 'left'
-                                    }
-                                });
-                            window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
-                            window.zE('webWidget:on', 'close', function () {
-                                window.zE('webWidget', 'hide');
-                            });
+                            //     'position': {
+                            //             'vertical': 'bottom',
+                            //             'horizontal': 'left'
+                            //         }
+                            //     });
+                            // window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
+                            // window.zE('webWidget:on', 'close', function () {
+                            //     window.zE('webWidget', 'hide');
+                            // });
                         }
                     }
                 });
@@ -331,10 +331,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-        console.log('hidding');
-        window.zE('webWidget', 'hide');
-    </script>
     <link rel="stylesheet" href="https://pendomattkerb.helpjuice.com/swifty.css">
     <script src="https://pendomattkerb.helpjuice.com/swifty.js"></script>
     <script>
