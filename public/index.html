@@ -99,10 +99,10 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <!-- Start of d3v-pendosupport Zendesk Widget script -->
-    <script id="ze-snippet"
-        src="https://static.zdassets.com/ekr/snippet.js?key=9b797bea-51e0-4175-a455-006a3df50290"> </script>
-    <!-- End of d3v-pendosupport Zendesk Widget script -->
+    <!-- Start of d3v-pendo-ts-test Zendesk Widget script -->
+    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=70be359a-9c3d-41ee-9923-3011e9451a80">
+    </script>
+    <!-- End of d3v-pendo-ts-test Zendesk Widget script -->
     <title>React App</title>
 </head>
 
@@ -116,15 +116,15 @@
     </noscript>
     <div id="root"></div>
     <script>
-        (function () {
-            (function (apiKey) {
-                (function (p, e, n, d, o) {
+        (function() {
+            (function(apiKey) {
+                (function(p, e, n, d, o) {
                     var v, w, x, y, z;
                     o = p[d] = p[d] || {};
                     o._q = [];
                     v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
-                    for (w = 0, x = v.length; w < x; ++w)(function (m) {
-                        o[m] = o[m] || function () {
+                    for (w = 0, x = v.length; w < x; ++w)(function(m) {
+                        o[m] = o[m] || function() {
                             o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(
                                 arguments, 0)));
                         };
@@ -141,11 +141,11 @@
                     apiKey: apiKey,
                     visitor: {
                         id: 'VISITOR-UNIQUE-ID'
-                        //transLang: 'es' // Required if user is logged in
-                        // email:        // Optional
-                        // role:         // Optional
-                        // You can add any additional visitor level key-values here,
-                        // as long as it's not one of the above reserved names.
+                            //transLang: 'es' // Required if user is logged in
+                            // email:        // Optional
+                            // role:         // Optional
+                            // You can add any additional visitor level key-values here,
+                            // as long as it's not one of the above reserved names.
                     },
                     account: {
                         // id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
@@ -157,31 +157,11 @@
                         // as long as it's not one of the above reserved names.
                     },
                     events: {
-                        guidesLoaded: function () {
+                        guidesLoaded: function() {
                             /*translate(pendo, {
                                 language: getCurrentLanguage(),
                                 url: 'http://127.0.0.1:3000/demoTransFile.json'
                             });*/
-                            window.zE('webWidget', 'updateSettings',
-                                {
-                                    'webWidget': {
-                                        'answerBot': {
-                                            'suppress': false
-                                        },
-                                        'helpCenter': {
-                                            'suppress': false
-                                        }
-                                    },
-                                
-                                'position': {
-                                        'vertical': 'bottom',
-                                        'horizontal': 'left'
-                                    }
-                                });
-                            window.zE('webWidget:on', 'open', function () { console.log('The widget has been opened!'); });
-                            window.zE('webWidget:on', 'close', function () {
-                            window.zE('webWidget', 'hide');
-                            });
                         }
                     }
                 });
@@ -345,8 +325,7 @@
             themeColor: '#126CFF',
             linkColor: '#126CFF'
         }
-        window.helpjuiceSwiftyUrlMap = {
-        }
+        window.helpjuiceSwiftyUrlMap = {}
     </script>
 
 </html>
