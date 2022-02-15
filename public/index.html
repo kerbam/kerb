@@ -2,17 +2,17 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="theme-color" content="#000000" />
-    <!--
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="theme-color" content="#000000" />
+  <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <!-- Google Tag Manager -->
-    <!--<script>
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+  <!-- Google Tag Manager -->
+  <!--<script>
             (function (w, d, s, l, i) {
                 w[l] = w[l] || [];
                 w[l].push({
@@ -27,70 +27,72 @@
                 f.parentNode.insertBefore(j, f);
             })(window, document, 'script', 'dataLayer', 'GTM-TS7BQV4');
         </script>-->
-    <!-- End Google Tag Manager -->
-    <!-- <script>
-            !(function() {
-                var analytics = (window.analytics = window.analytics || []);
-                if (!analytics.initialize)
-                    if (analytics.invoked)
-                        window.console &&
-                            console.error &&
-                            console.error('Segment snippet included twice.');
-                    else {
-                        analytics.invoked = !0;
-                        analytics.methods = [
-                            'trackSubmit',
-                            'trackClick',
-                            'trackLink',
-                            'trackForm',
-                            'pageview',
-                            'identify',
-                            'reset',
-                            'group',
-                            'track',
-                            'ready',
-                            'alias',
-                            'debug',
-                            'page',
-                            'once',
-                            'off',
-                            'on'
-                        ];
-                        analytics.factory = function(t) {
-                            return function() {
-                                var e = Array.prototype.slice.call(arguments);
-                                e.unshift(t);
-                                analytics.push(e);
-                                return analytics;
-                            };
-                        };
-                        for (var t = 0; t < analytics.methods.length; t++) {
-                            var e = analytics.methods[t];
-                            analytics[e] = analytics.factory(e);
-                        }
-                        analytics.load = function(t, e) {
-                            var n = document.createElement('script');
-                            n.type = 'text/javascript';
-                            n.async = !0;
-                            n.src =
-                                'https://cdn.segment.com/analytics.js/v1/' +
-                                t +
-                                '/analytics.min.js';
-                            var a = document.getElementsByTagName('script')[0];
-                            a.parentNode.insertBefore(n, a);
-                            analytics._loadOptions = e;
-                        };
-                        analytics.SNIPPET_VERSION = '4.1.0';
-                        analytics.load('sjOJzcd1QkqTq3kCkqaP4mPgFuoGDbGa');
-                        analytics.page();
-                        analytics.identify('VISITOR-UNIQUE-ID', {
-                            isSegment: true,
-                            optOut: true
-                        });
-                    }
-            })();
-        </script> -->
-    <!--
+  <!-- End Google Tag Manager -->
+  <!-- Segment Install -->
+  <script>
+    !(function () {
+      var analytics = (window.analytics = window.analytics || []);
+      if (!analytics.initialize)
+        if (analytics.invoked)
+          window.console &&
+            console.error &&
+            console.error('Segment snippet included twice.');
+        else {
+          analytics.invoked = !0;
+          analytics.methods = [
+            'trackSubmit',
+            'trackClick',
+            'trackLink',
+            'trackForm',
+            'pageview',
+            'identify',
+            'reset',
+            'group',
+            'track',
+            'ready',
+            'alias',
+            'debug',
+            'page',
+            'once',
+            'off',
+            'on'
+          ];
+          analytics.factory = function (t) {
+            return function () {
+              var e = Array.prototype.slice.call(arguments);
+              e.unshift(t);
+              analytics.push(e);
+              return analytics;
+            };
+          };
+          for (var t = 0; t < analytics.methods.length; t++) {
+            var e = analytics.methods[t];
+            analytics[e] = analytics.factory(e);
+          }
+          analytics.load = function (t, e) {
+            var n = document.createElement('script');
+            n.type = 'text/javascript';
+            n.async = !0;
+            n.src =
+              'https://cdn.segment.com/analytics.js/v1/' +
+              t +
+              '/analytics.min.js';
+            var a = document.getElementsByTagName('script')[0];
+            a.parentNode.insertBefore(n, a);
+            analytics._loadOptions = e;
+          };
+          analytics.SNIPPET_VERSION = '4.1.0';
+          analytics.load('sjOJzcd1QkqTq3kCkqaP4mPgFuoGDbGa');
+          analytics.page();
+          analytics.identify('VISITOR-UNIQUE-ID', {
+            isSegment: true,
+            optOut: true
+          });
+        }
+    })();
+  </script>
+  <!-- End Segment Install -->
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -99,23 +101,23 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <!-- Start of d3v-pendo-ts-test Zendesk Widget script -->
-    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=70be359a-9c3d-41ee-9923-3011e9451a80">
-    </script>
-    <!-- End of d3v-pendo-ts-test Zendesk Widget script -->
-    <title>React App</title>
+  <!-- Start of d3v-pendo-ts-test Zendesk Widget script -->
+  <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=70be359a-9c3d-41ee-9923-3011e9451a80">
+  </script>
+  <!-- End of d3v-pendo-ts-test Zendesk Widget script -->
+  <title>React App</title>
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TS7BQV4" height="0" width="0"
-            style="display: none; visibility: hidden;"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <noscript>
-        You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
-    <script>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TS7BQV4" height="0" width="0"
+      style="display: none; visibility: hidden;"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
+  <!-- <script>
         (function() {
             (function(apiKey) {
                 (function(p, e, n, d, o) {
@@ -300,8 +302,8 @@
                 }
             }*/
         })();
-    </script>
-    <!--
+    </script>-->
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -311,22 +313,22 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-        console.log('hidding');
-        window.zE('webWidget', 'hide');
-    </script>
-    <link rel="stylesheet" href="https://pendomattkerb.helpjuice.com/swifty.css">
-    <script src="https://pendomattkerb.helpjuice.com/swifty.js"></script>
-    <script>
-        window.helpjuice_account_url = 'https://pendomattkerb.helpjuice.com';
-        window.helpjuice_contact_us_url = 'https://pendomattkerb.helpjuice.com/contact-us';
-        window.helpjuiceSwiftyConfig = {
-            widgetPosition: 'bottomLeft',
-            themeColor: '#126CFF',
-            linkColor: '#126CFF'
-        }
-        window.helpjuiceSwiftyUrlMap = {}
-    </script>
+  <script>
+    console.log('hidding');
+    window.zE('webWidget', 'hide');
+  </script>
+  <link rel="stylesheet" href="https://pendomattkerb.helpjuice.com/swifty.css">
+  <script src="https://pendomattkerb.helpjuice.com/swifty.js"></script>
+  <script>
+    window.helpjuice_account_url = 'https://pendomattkerb.helpjuice.com';
+    window.helpjuice_contact_us_url = 'https://pendomattkerb.helpjuice.com/contact-us';
+    window.helpjuiceSwiftyConfig = {
+      widgetPosition: 'bottomLeft',
+      themeColor: '#126CFF',
+      linkColor: '#126CFF'
+    }
+    window.helpjuiceSwiftyUrlMap = {}
+  </script>
 
 </html>
 </body>
