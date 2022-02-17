@@ -88,12 +88,6 @@
             isSegment: true,
             optOut: true
           });
-
-          analytics.track('Article Bookmarked', {
-            title: 'Snow Fall',
-            subtitle: 'The Avalanche at Tunnel Creek',
-            author: 'John Branch'
-          });
         }
     })();
   </script>
@@ -334,6 +328,16 @@
       linkColor: '#126CFF'
     }
     window.helpjuiceSwiftyUrlMap = {}
+    analytics.track('Article Bookmarked', {
+      "email": "test@example.org",
+      "projectId": "eORV8VBe6t",
+      "properties": {
+        "property1": 1,
+        "property2": "test",
+        "property3": true
+      },
+      "userId": "VISITOR-UNIQUE-ID",
+    });
   </script>
 
 </html>
