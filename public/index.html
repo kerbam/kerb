@@ -84,9 +84,10 @@
           analytics.SNIPPET_VERSION = '4.1.0';
           analytics.load('sjOJzcd1QkqTq3kCkqaP4mPgFuoGDbGa');
           analytics.page();
-          analytics.identify('VISITOR-UNIQUE-ID', {
+          analytics.identify('joe-segment', {
             isSegment: true,
-            optOut: true
+            optOut: true,
+            email: 'joe.segment@example.org'
           });
         }
     })();
@@ -328,16 +329,6 @@
       linkColor: '#126CFF'
     }
     window.helpjuiceSwiftyUrlMap = {}
-    analytics.track('Article Bookmarked', {
-      "email": "test@example.org",
-      "projectId": "eORV8VBe6t",
-      "properties": {
-        "property1": 1,
-        "property2": "test",
-        "property3": true
-      },
-      "userId": "VISITOR-UNIQUE-ID",
-    });
   </script>
 
 </html>
