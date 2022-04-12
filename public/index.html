@@ -124,6 +124,11 @@
                     analytics.SNIPPET_VERSION = "4.15.3";
                     analytics.load("lYdsEuULnvLwMY4hmiNv4iWzrq6krZQf");
                     analytics.page();
+                    analytics.identify('joe-segment', {
+                        isSegment: true,
+                        optOut: true,
+                        email: 'joe.segment@example.org'
+                    });
                 }
         }();
     </script>
