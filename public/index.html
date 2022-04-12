@@ -28,7 +28,7 @@
             })(window, document, 'script', 'dataLayer', 'GTM-TS7BQV4');
         </script>-->
     <!-- End Google Tag Manager -->
-    <!-- Segment Install -->
+    <!-- Segment mattkerb Install -->
     <!-- <script>
         !(function () {
             var analytics = (window.analytics = window.analytics || []);
@@ -93,7 +93,7 @@
         })();
     </script> -->
     <!-- End Segment Install -->
-
+    <!-- Segment Pendo dev -->
     <script>
         !function () {
             var analytics = window.analytics = window.analytics || [];
@@ -127,7 +127,8 @@
                     analytics.identify('joe-segment', {
                         isSegment: true,
                         optOut: true,
-                        email: 'joe.segment@example.org'
+                        email: 'joe.segment@example.org',
+                        group: 'acme'
                     });
                 }
         }();
