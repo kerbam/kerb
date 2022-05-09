@@ -116,15 +116,15 @@
     </noscript>
     <div id="root"></div>
     <script>
-        (function() {
-            (function(apiKey) {
-                (function(p, e, n, d, o) {
+        (function () {
+            (function (apiKey) {
+                (function (p, e, n, d, o) {
                     var v, w, x, y, z;
                     o = p[d] = p[d] || {};
                     o._q = [];
                     v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
-                    for (w = 0, x = v.length; w < x; ++w)(function(m) {
-                        o[m] = o[m] || function() {
+                    for (w = 0, x = v.length; w < x; ++w)(function (m) {
+                        o[m] = o[m] || function () {
                             o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(
                                 arguments, 0)));
                         };
@@ -141,11 +141,11 @@
                     apiKey: apiKey,
                     visitor: {
                         id: 'VISITOR-UNIQUE-ID'
-                            //transLang: 'es' // Required if user is logged in
-                            // email:        // Optional
-                            // role:         // Optional
-                            // You can add any additional visitor level key-values here,
-                            // as long as it's not one of the above reserved names.
+                        //transLang: 'es' // Required if user is logged in
+                        // email:        // Optional
+                        // role:         // Optional
+                        // You can add any additional visitor level key-values here,
+                        // as long as it's not one of the above reserved names.
                     },
                     account: {
                         // id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
@@ -157,14 +157,29 @@
                         // as long as it's not one of the above reserved names.
                     },
                     events: {
-                        guidesLoaded: function() {
+                        guidesLoaded: function () {
                             /*translate(pendo, {
                                 language: getCurrentLanguage(),
                                 url: 'http://127.0.0.1:3000/demoTransFile.json'
                             });*/
+                        },
+
+                        ready: function () {
+                            pendo.updateGlobal();
                         }
                     }
                 });
+                var globalScriptTag = document.createElement('script');
+                globalScriptTag.setAttribute('src', 'https://pendo-static-5582159194488832.storage.googleapis.com/global-guide.js/vOIxD-cJNrRDvMmFkj78pjOBHmQ'); //Swap this for version you wish to utilize
+                var globalVars = document.createElement('script');
+                globalVars.innerHTML = `
+                        var supportHub = "reaxys"; //Your product name for OSvC
+                        var topFAQ = ["17577", "27775", "13694", "27675", "27902", "13722", "11644", "14526", "12897", "12021"]; //Articles to include in your FAQ Top 10`
+
+                pendo.updateGlobal = function () {
+                    document.head.appendChild(globalScriptTag);
+                    document.head.appendChild(globalVars);
+                }
             })('f72d5f01-b371-4cad-7f04-df672c356b81');
 
             /*function getCurrentLanguage() {
