@@ -48,6 +48,8 @@ class App extends Component {
                 <select name="projectName" id="projectName" className="search-input" onchange="jspProjectNameChanged(event);" disabled="">
                     <option value="All" selected="selected">All</option>
                 </select>
+                <br />
+                <input type="text" id="searchValue" className="form-control ng-pristine ng-valid ng-empty ng-touched" ng-model="simpleSearchInput" ng-keypress="pSCtrl.toggleProjectFilterOff('key', $event)" ng-keydown="pSCtrl.toggleProjectFilterOff('key', $event)" name="projectFilter.simpleSearch" placeholder="What are you looking for?" autofocus=""></input>
             </div>
         );
     }
