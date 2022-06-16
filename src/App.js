@@ -33,9 +33,6 @@ class App extends Component {
                     onchange="jspSrcLanguageChanged(event);" disabled="">
                     <option value="All">Choose...</option>
                 </select>
-                <img id="unFreezerSrcLang" style="display:none;" src="themes/_default/1/images/pages/smallDelete.gif"
-                    onclick="jspUnFrezeeSrcLang();" onmouseover="showTooltip(event,'Reset source language');return false"
-                    onmouseout="hideTooltip()" />
                 <font color="red">*</font>
                 <label for="targetLanguage">
                     Target language
@@ -45,18 +42,12 @@ class App extends Component {
                     onchange="jspTgtLanguageChanged(event);" disabled="">
                     <option value="">Choose...</option>
                 </select>
-                <img id="unFreezerTgtLang" style="display:none;" src="themes/_default/1/images/pages/smallDelete.gif"
-                    onclick="jspUnFrezeeTgtLang();" onmouseover="showTooltip(event,'Reset target language');return false"
-                    onmouseout="hideTooltip()">
-                    <label for="projectName">
-                        Project
-                    </label>
-                    <select name="projectName" id="projectName" class="search-input" onchange="jspProjectNameChanged(event);" disabled="">
-                        <option value="All" selected="selected">All</option>
-                    </select>
-                    <img id="unFreezerProjects" style="display:none;" src="themes/_default/1/images/pages/smallDelete.gif"
-                        onclick="jspUnFrezeeProjects();" onmouseover="showTooltip(event,'Reset project');return false"
-                        onmouseout="hideTooltip()" /></img>
+                <label for="projectName">
+                    Project
+                </label>
+                <select name="projectName" id="projectName" class="search-input" onchange="jspProjectNameChanged(event);" disabled="">
+                    <option value="All" selected="selected">All</option>
+                </select>
             </div>
         );
     }
