@@ -17,7 +17,7 @@ class App extends Component {
                 <label for="customerId">
                     Customer
                 </label>
-                <select id="customerId" name="customerId" class="search-input" onchange="jspChangeCurrentCustomer()"
+                <select id="customerId" name="customerId" className="search-input" onchange="jspChangeCurrentCustomer()"
                     ng-non-bindable="true">
                     <option value="">Choose...</option>
                     <option ng-non-bindable="true" value="ALL_CUSTOMERS">All</option>
@@ -29,7 +29,7 @@ class App extends Component {
                 <label for="sourceLanguage">
                     Source language
                 </label>
-                <select name="sourceLanguage" id="sourceLanguage" class="search-input search-input-id"
+                <select name="sourceLanguage" id="sourceLanguage" className="search-input search-input-id"
                     onchange="jspSrcLanguageChanged(event);" disabled="">
                     <option value="All">Choose...</option>
                 </select>
@@ -37,7 +37,7 @@ class App extends Component {
                 <label for="targetLanguage">
                     Target language
                 </label>
-                <span id="targetLanguages" class="edit icon disabled">✎</span>
+                <span id="targetLanguages" className="edit icon disabled">✎</span>
                 <select name="targetLanguage" id="targetLanguage" class="search-input search-input-id"
                     onchange="jspTgtLanguageChanged(event);" disabled="">
                     <option value="">Choose...</option>
@@ -45,7 +45,7 @@ class App extends Component {
                 <label for="projectName">
                     Project
                 </label>
-                <select name="projectName" id="projectName" class="search-input" onchange="jspProjectNameChanged(event);" disabled="">
+                <select name="projectName" id="projectName" className="search-input" onchange="jspProjectNameChanged(event);" disabled="">
                     <option value="All" selected="selected">All</option>
                 </select>
             </div>
