@@ -53,9 +53,8 @@ class App extends Component {
                 <br />
                 <section id="tabBasic" aria-labelledby="ui-id-1" role="tabpanel"
                     className="ui-tabs-panel ui-corner-bottom ui-widget-content ui-xtm-tabs ui-tabs ui-corner-all ui-widget ui-tabs-collapsible ui-tabs-horizontal"
-                    aria-hidden="false" style="">
-                    <ul role="tablist" className="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header"
-                        style="display: none;">
+                    aria-hidden="false">
+                    <ul role="tablist" className="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
                         <li role="tab" tabindex="0"
                             className="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"
                             aria-controls="basic-tab" aria-labelledby="ui-id-12" aria-selected="true" aria-expanded="true"><a
@@ -63,7 +62,7 @@ class App extends Component {
                         </li>
                     </ul>
                     <section id="basic-tab" aria-labelledby="ui-id-12" role="tabpanel"
-                        className="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="false" style="">
+                        className="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="false">
                         <div id="basic-tab" className="tab-content generic-config-container">
                             <div className="config-group group-BASIC">
                                 <h1>System<span className="indicator active" id="tooltip_BASIC"></span></h1>
@@ -116,9 +115,9 @@ class App extends Component {
                                             <td className="input"> <input type="file" id="uploadBigLogo" name="uploadBigLogo" size="25"/>
                                                 <div className="error-container"></div>
                                             </td>
-                                            <td className="row_to_right" id="logoRow"> <span id="smallLogo" style="display: none;"><img
+                                            <td className="row_to_right" id="logoRow"> <span id="smallLogo"><img
                                                 id="smallLogoImg" alt="" className="logo_small_upload"/></span><span
-                                                    id="trashContainer" style="display: none;"><img
+                                                    id="trashContainer"><img
                                                         src="themes/_default/1/images/pages/buttons/trash.png"
                                                         className="icon-container delete-tag" id="trash"/></span> </td>
                                         </tr>
@@ -127,7 +126,7 @@ class App extends Component {
                             </div>
                             <div className="tooltips-container" id="tooltip_BASIC_content"> <span className="convert-to-html break"
                                 name="SYSTEM_TOOLTIP">
-                                <ul style="list-style:none;">
+                                <ul>
                                     <li> - Home page URL - Set links in XTM to connect to your website home page</li>
                                     <li> - Application name - Set the application name in email messages</li>
                                     <li> - Enable subcontracting - Enable the subcontracting feature</li>
@@ -143,11 +142,11 @@ class App extends Component {
                             </span> </div>
                             <div className="button-message">
                                 <div id="message-container"></div> <span id="save-button">
-                                    <table style="margin: auto">
+                                    <table>
                                         <tbody>
                                             <tr>
                                                 <td id="button-save" className="js_button">
-                                                    <div className="button-blue btn btn-xtm btn-primary" style="width: 95px;" tabindex="0">
+                                                    <div className="button-blue btn btn-xtm btn-primary" tabindex="0">
                                                         <div className="tl">
                                                             <div className="tr"></div>
                                                         </div>
