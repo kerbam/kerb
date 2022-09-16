@@ -171,7 +171,7 @@
           guides: {
             globalScripts: [
               {
-                script: (function (step, guide, dom) {
+                script: function variableSubstitution(step, guide) {
                   var substitutionRegex = /[\[^ ][%= *]*(?<type>visitor|account|parent)\.(?<property>[^|]+)\|?(?<default>.*) *%]/i;
                   var placeholderElements = findSubstitutableElements('#pendo-guide-container *:not(.pendo-inline-ui)');
 
@@ -196,12 +196,12 @@
                   function findSubstitutableElements(selector) {
                     var elements = pendo.dom(selector);
                     return pendo._.filter(elements, function (element) {
-                      if (dom(element).hasClass('_pendo-text-plain') || dom(element).hasClass('bb-button')) {
+                      if (pendo.dom(element).hasClass('_pendo-text-plain') || pendo.dom(element).hasClass('bb-button')) {
                         return RegExp(substitutionRegex).test(element.textContent);
                       }
                     });
                   }
-                })(step, guide, pendo.dom)
+                }
               }
             ]
           }
