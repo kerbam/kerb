@@ -54,6 +54,7 @@
             globalScripts: [
               {
                 script: function variableSubstitution(step, guide) {
+                  console.log('running variable substitution');
                   var substitutionRegex = /[\[^ ][%= *]*(?<type>visitor|account|parent)\.(?<property>[^|]+)\|?(?<default>.*) *%]/i;
                   var placeholderElements = findSubstitutableElements('#pendo-guide-container *:not(.pendo-inline-ui)');
 
