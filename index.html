@@ -88,7 +88,7 @@
               // }
               {
                 script: function keyPressGuideNav(step, guide) {
-                  step.attachEvent(step.element, 'keydown', (event) => {
+                  step.attachEvent(step.element, 'keydown', (event, step, guide) => {
                     console.log({guide: guide});
                     console.log({step1Id: guide.steps[0].id});
                     console.log({last: guide.steps[guide.steps.length - 1].id});
