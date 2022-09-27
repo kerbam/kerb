@@ -87,8 +87,8 @@
               //   }
               // }
               {
-                script: function keyPressGuideNav(step, guide) {
-                  step.attachEvent('keydown', (event) => {
+                script: function keyPressGuideNav(step) {
+                  step.attachEvent(step.element, 'keydown', (event) => {
                     console.log('keydown')
                     if (event.keyCode === 39) pendo.onGuideAdvanced(step); // right arrow key
                   })
