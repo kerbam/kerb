@@ -206,7 +206,7 @@
               },
               {
                 script: function keyPressGuideNav(step, guide) {
-                  step.attachEvent(step.element, 'keydown', (event) => {
+                  step.attachEvent(step.guideElement[0], 'keydown', (event) => {
                     if (event.keyCode === 39 || event.keyCode === 9) pendo.onGuideAdvanced(step); // right arrow key & tab key
                     if (event.keyCode === 37) pendo.onGuidePrevious(); // left arrow key
                     // go to the first step of a guide
