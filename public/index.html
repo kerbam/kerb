@@ -170,44 +170,44 @@
           },
           guides: {
             globalScripts: [
-              // {
-              //   script: function variableSubstitution() {
-              //     console.log('running variable substitution');
-              //     var substitutionRegex = /[\[^ ][%= *]*(?<type>visitor|account|parent)\.(?<property>[^|]+)\|?(?<default>.*) *%]/i;
-              //     var placeholderElements = findSubstitutableElements('#pendo-guide-container *:not(.pendo-inline-ui)');
+              {
+                script: function variableSubstitution() {
+                  console.log('running variable substitution');
+                  var substitutionRegex = /[\[^ ][%= *]*(?<type>visitor|account|parent)\.(?<property>[^|]+)\|?(?<default>.*) *%]/i;
+                  var placeholderElements = findSubstitutableElements('#pendo-guide-container *:not(.pendo-inline-ui)');
 
-              //     if (placeholderElements.length !== 0) {
-              //       pendo._.each(placeholderElements, function (element) {
-              //         var stringToSubArray;
-              //         if (substitutionRegex.exec(element.textContent)) {
-              //           stringToSubArray = substitutionRegex.exec(element.textContent);
-              //         }
-              //         if (stringToSubArray.length) {
-              //           if (!pendo._.isUndefined(stringToSubArray.groups)) {
-              //             var mdType = stringToSubArray.groups.type.trim();
-              //             var mdProp = stringToSubArray.groups.property.trim();
-              //             var defaultString = stringToSubArray.groups.default.trim();
-              //           }
-              //           var mdValue = (pendo.getSerializedMetadata()[mdType][mdProp]) ? pendo.getSerializedMetadata()[mdType][mdProp] : defaultString;
-              //           element.textContent = element.textContent.replace(stringToSubArray[0], mdValue).replace(/\s+(\W)/g, "$1").trim();
-              //         }
-              //       })
-              //     }
+                  if (placeholderElements.length !== 0) {
+                    pendo._.each(placeholderElements, function (element) {
+                      var stringToSubArray;
+                      if (substitutionRegex.exec(element.textContent)) {
+                        stringToSubArray = substitutionRegex.exec(element.textContent);
+                      }
+                      if (stringToSubArray.length) {
+                        if (!pendo._.isUndefined(stringToSubArray.groups)) {
+                          var mdType = stringToSubArray.groups.type.trim();
+                          var mdProp = stringToSubArray.groups.property.trim();
+                          var defaultString = stringToSubArray.groups.default.trim();
+                        }
+                        var mdValue = (pendo.getSerializedMetadata()[mdType][mdProp]) ? pendo.getSerializedMetadata()[mdType][mdProp] : defaultString;
+                        element.textContent = element.textContent.replace(stringToSubArray[0], mdValue).replace(/\s+(\W)/g, "$1").trim();
+                      }
+                    })
+                  }
 
-              //     function findSubstitutableElements(selector) {
-              //       var elements = pendo.dom(selector);
-              //       return pendo._.filter(elements, function (element) {
-              //         if (pendo.dom(element).hasClass('_pendo-text-plain') || pendo.dom(element).hasClass('bb-button')) {
-              //           return RegExp(substitutionRegex).test(element.textContent);
-              //         }
-              //       });
-              //     }
-              //   }
-              // }
+                  function findSubstitutableElements(selector) {
+                    var elements = pendo.dom(selector);
+                    return pendo._.filter(elements, function (element) {
+                      if (pendo.dom(element).hasClass('_pendo-text-plain') || pendo.dom(element).hasClass('bb-button')) {
+                        return RegExp(substitutionRegex).test(element.textContent);
+                      }
+                    });
+                  }
+                }
+              },
               {
                 script: function keyPressGuideNav(step, guide) {
                   step.attachEvent(step.element, 'keydown', (event) => {
-                    if (event.keyCode === 39 || event.keyCode === 9) pendo.onGuideAdvanced(step); // right arrow key
+                    if (event.keyCode === 39 || event.keyCode === 9) pendo.onGuideAdvanced(step); // right arrow key & tab key
                     if (event.keyCode === 37) pendo.onGuidePrevious(); // left arrow key
                     // go to the first step of a guide
                     if (event.keyCode === 38) pendo.goToStep({destinationStepId: guide.steps[0].id})// up arrow key
