@@ -208,7 +208,7 @@
                 script: function keyPressGuideNav(step, guide) {
                   step.attachEvent('keydown', (event) => {
                     console.log('keydown')
-                    if (event.keyCode === 37) pendo.onGuideAdvanced(step);
+                    if (event.keyCode === 39) pendo.onGuideAdvanced(step); // right arrow key
                   })
                 }
               }
