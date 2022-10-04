@@ -208,7 +208,7 @@
                 script: function sendCompletionToken(step, guide) {
                   console.log('Sending Completion Token');
                 },
-                test: function() {
+                test: function(step, guide) {
                   return guide.getTotalSteps() === guide.getPositionOfStep(step);
                 }
               }
