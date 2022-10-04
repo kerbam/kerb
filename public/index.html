@@ -209,7 +209,7 @@
                   console.log('Regex match');
                 },
                 regex: function(step, guide) {
-                  return /^\[\w*\]/.test(step.name);
+                  return new RegExp(/^\[\w*\]/).test(step.name);
                 }
               }
             ]
