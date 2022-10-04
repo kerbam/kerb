@@ -206,10 +206,10 @@
               // },
               {
                 script: function sendCompletionToken(step, guide) {
-                  console.log('Sending Completion Token');
+                  console.log('Regex match');
                 },
-                test: function(step, guide) {
-                  return guide.getTotalSteps() === guide.getPositionOfStep(step);
+                regex: function(step, guide) {
+                  return /^\[\w*\]/.test(step.name);
                 }
               }
             ]
