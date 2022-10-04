@@ -208,9 +208,7 @@
                 script: function sendCompletionToken(step, guide) {
                   console.log('Regex match');
                 },
-                regex: function(step, guide) {
-                  return new RegExp(/^\[\w*\]/).test(step.name);
-                }
+                regex: "/^\[\w*\]/",
               }
             ]
           }
