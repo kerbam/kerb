@@ -161,9 +161,9 @@
               pendo._.each(pendo.guides, function (guide) {
                 pendo._.each(guide.steps, function (step) {
                   if (!step.before) return
-                  step.before('render', function checkBeforeShow() {
-                    // Only do this when the current active step is torn down
-                    if (step.id == pendo.lastGuideStepSeen.guideStepId)
+                  step.before('show', function checkBeforeShow() {
+                    // Only do this when the current active step
+                    if (step.id === pendo.getActiveGuide().step.id);
                       checkKeyCombo(step);
                   });
                 });
