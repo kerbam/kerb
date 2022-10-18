@@ -147,7 +147,7 @@
                     }
                     if ((event.altKey && advanceKeys.includes(event.key)) || (event.ctrl && event.key === "f") || event.key === "Tab") pendo.onGuideAdvanced(step); // right arrow key & tab key
                     if ((event.altKey && previousKeys.includes(event.key))) pendo.onGuidePrevious(); // left arrow key
-                    if (event.alt && event.key === 'y') pendo.onGuideDismissed();
+                    if ((event.altKey && event.key === 'y')) pendo.onGuideDismissed();
                   })
                 }
               }
