@@ -157,80 +157,41 @@
             // as long as it's not one of the above reserved names.
           },
           events: {
-            // guidesLoaded: function () {
-            //   pendo._.each(pendo.guides, function (guide) {
-            //     pendo._.each(guide.steps, function (step) {
-            //       setKeyComboBeforeShow(step);
-            //     });
-            //   });
-            //   function checkKeyCombo() {
-            //     if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
-            //       var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
-            //       if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
-            //         pendo._.once(() => pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE'));
-            //       }
-            //     } else {
-            //       var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
-            //         ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
-            //         : JSON.parse(getCookie('dismissKeyCombo'));
-            //     };
-            //     var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
-            //     var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
-            //     return true;
-            //   }
+            guidesLoaded: function () {
+              pendo._.each(pendo.guides, function (guide) {
+                pendo._.each(guide.steps, function (step) {
+                  checkKeyCombo(step);
+                });
+              });
+              function checkKeyCombo(step) {
+                if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
+                  var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
+                  if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
+                    if (pendo.getActiveGuide())
+                      pendo.onGuideDismissed();
+                    pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE');
+                  }
+                } else {
+                  var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
+                    ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
+                    : JSON.parse(getCookie('dismissKeyCombo'));
+                };
+                var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
+                var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
+                return true;
+              }
 
-            //   function setKeyComboBeforeShow(step) {
-            //     if (!step.before) return;
-
-            //     var cancelled = false;
-            //     var done = false;
-
-            //     step.before('hide', function beforeHide() {
-            //       cancelled = true;
-            //     });
-
-            //     step.before('show', function beforeShow(reason) {
-            //       if (step.id !== "ct8G0t7FsGTtoa06MDL5AkkocsE") 
-            //         step.hide();
-            //       cancelled = false;
-
-            //       if (done) return true;
-
-            //       step.lock();
-
-            //       var keyComboSet = checkKeyCombo()
-            //       if (keyComboSet) {
-            //         step.unlock();
-            //         if (cancelled) return;
-            //         done = true;
-            //         step.show(reason);
-            //         if (!step.isShown()) {
-            //           step.hide();
-            //         }
-            //       } else {
-            //         step.unlock();
-            //         if (cancelled) return;
-            //         done = true;
-            //         step.show(reason);
-            //         if (!step.isShown()) {
-            //           step.hide();
-            //         }
-            //       }
-            //       return false; // Prevent the guide from showing until the translation loads
-            //     });
-            //   }
-
-            //   function getCookie(name) {
-            //     /**
-            //      * Lookup a cookie value by name
-            //      * @param  {String} name key of the cookie to look up its value
-            //      * @return {String} return the region based locale
-            //      */
-            //     var match = document.cookie.match(
-            //       new RegExp('(^| )' + name + '=([^;]+)')
-            //     );
-            //   }
-            // },
+              function getCookie(name) {
+                /**
+                 * Lookup a cookie value by name
+                 * @param  {String} name key of the cookie to look up its value
+                 * @return {String} return the region based locale
+                 */
+                var match = document.cookie.match(
+                  new RegExp('(^| )' + name + '=([^;]+)')
+                );
+              }
+            },
           },
           guides: {
             globalScripts: [
