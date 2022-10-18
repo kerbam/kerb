@@ -118,7 +118,7 @@
                 script: function keyPressGuideNav(step, guide) {
                   var advanceKeys = ["c", "\\", "Enter", "ArrowDown", "ArrowRight", ".", "=", "/"];
                   var previousKeys = ["PageUp", "Tab", ",", "ArrowLeft", "ArrowUp"];
-                  setKeyComboBeforeShow();
+                  setKeyComboBeforeShow(step);
                   step.attachEvent(step.guideElement[0], 'keydown', (event) => {
                     // bail if it is a single keystroke
                     if (
