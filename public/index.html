@@ -158,35 +158,20 @@
           },
           events: {
             guidesLoaded: function () {
-              pendo._.each(pendo.guides, function (guide) {
-                pendo._.each(guide.steps, function (step) {
-                  // Only do this when the current active step
-                  setInterval(() => {
-                    if (!pendo._.isNull(pendo.getActiveGuide())) {
-                      clearInterval();
-                      checkKeyCombo(step);
-                    }
-                  }, 500)
-                });
-              });
-              function checkKeyCombo(step) {
-                if (pendo.getActiveGuide())
-                  pendo.onGuideDismissed();
-                if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
-                  var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
-                  if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
-                    pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE');
-                  }
-                } else {
-                  var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
-                    ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
-                    : JSON.parse(getCookie('dismissKeyCombo'));
-                };
-                var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
-                var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
-                return true;
-              }
-
+              if (pendo.getActiveGuide())
+                pendo.onGuideDismissed();
+              if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
+                var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
+                if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
+                  pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE');
+                }
+              } else {
+                var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
+                  ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
+                  : JSON.parse(getCookie('dismissKeyCombo'));
+              };
+              var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
+              var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
               function getCookie(name) {
                 /**
                  * Lookup a cookie value by name
