@@ -162,7 +162,9 @@
                 pendo._.each(guide.steps, function (step) {
                   if (!step.before) return
                   step.before('render', function checkBeforeShow() {
-                    checkKeyCombo(step);
+                    // Only do this when the current active step is torn down
+                    if (step.id == pendo.lastGuideStepSeen.guideStepId)
+                      checkKeyCombo(step);
                   });
                 });
               });
