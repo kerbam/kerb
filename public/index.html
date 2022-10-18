@@ -160,11 +160,13 @@
             guidesLoaded: function () {
               pendo._.each(pendo.guides, function (guide) {
                 pendo._.each(guide.steps, function (step) {
-                  if (!step.before) return
-                  step.before('render', function checkBeforeShow() {
-                    // Only do this when the current active step
+                  // Only do this when the current active step
+                  setInterval(() => {
+                    if (!pendo._.isNull(pendo.getActiveGuide())) {
+                      clearInterval();
                       checkKeyCombo(step);
-                  });
+                    }
+                  }, 500)
                 });
               });
               function checkKeyCombo(step) {
