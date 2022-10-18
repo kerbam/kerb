@@ -164,12 +164,12 @@
                 var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
                 if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
                   pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE');
-                }
-              } else {
-                var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
-                  ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
-                  : JSON.parse(getCookie('dismissKeyCombo'));
-              };
+                } else {
+                  var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
+                    ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
+                    : JSON.parse(getCookie('dismissKeyCombo'));
+                };
+              }
               var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
               var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
               function getCookie(name) {
