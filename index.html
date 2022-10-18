@@ -1,1 +1,298 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000"/><link rel="manifest" href="/kerb/manifest.json"/><link rel="shortcut icon" href="/kerb/favicon.ico"/><script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=70be359a-9c3d-41ee-9923-3011e9451a80"></script><title>React App</title><link href="/kerb/static/css/main.c17080f1.css" rel="stylesheet"></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TS7BQV4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!function(){var f;f="f72d5f01-b371-4cad-7f04-df672c356b81",function(e,n,t,i,o){var a,c,d,s,p;for((o=e[i]=e[i]||{})._q=[],c=0,d=(a=["initialize","identify","updateOptions","pageLoad"]).length;c<d;++c)!function(e){o[e]=o[e]||function(){o._q[e===a[0]?"unshift":"push"]([e].concat([].slice.call(arguments,0)))}}(a[c]);(s=n.createElement(t)).async=!0,s.src="https://cdn.pendo.io/agent/static/"+f+"/pendo.js",(p=n.getElementsByTagName(t)[0]).parentNode.insertBefore(s,p)}(window,document,"script","pendo"),pendo.initialize({apiKey:f,visitor:{id:"whoami"},account:{id:"no-metadata"},events:{guidesLoaded:function(){},ready:function(){pendo.updateGlobal()}},guides:{globalScripts:[{script:function(e,n){console.log("Regex match")},regex:"/^[w*]/"}]}})}()</script><script>console.log("hidding"),window.zE("webWidget","hide")</script><link rel="stylesheet" href="https://pendomattkerb.helpjuice.com/swifty.css"><script src="https://pendomattkerb.helpjuice.com/swifty.js"></script><script>window.helpjuice_account_url="https://pendomattkerb.helpjuice.com",window.helpjuice_contact_us_url="https://pendomattkerb.helpjuice.com/contact-us",window.helpjuiceSwiftyConfig={widgetPosition:"bottomLeft",themeColor:"#126CFF",linkColor:"#126CFF"},window.helpjuiceSwiftyUrlMap={}</script></body></html><script type="text/javascript" src="/kerb/static/js/main.348389be.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000"/><link rel="manifest" href="/kerb/manifest.json"/><link rel="shortcut icon" href="/kerb/favicon.ico"/><script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=70be359a-9c3d-41ee-9923-3011e9451a80"></script><title>React App</title><link href="/kerb/static/css/main.c17080f1.css" rel="stylesheet"></head><body><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TS7BQV4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>(function () {
+      (function (apiKey) {
+        (function (p, e, n, d, o) {
+          var v, w, x, y, z;
+          o = p[d] = p[d] || {};
+          o._q = [];
+          v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
+          for (w = 0, x = v.length; w < x; ++w)(function (m) {
+            o[m] = o[m] || function () {
+              o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(
+                arguments, 0)));
+            };
+          })(v[w]);
+          y = e.createElement(n);
+          y.async = !0;
+          y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
+          z = e.getElementsByTagName(n)[0];
+          z.parentNode.insertBefore(y, z);
+        })(window, document, 'script', 'pendo');
+        // Call this whenever information about your visitors becomes available
+        // Please use Strings, Numbers, or Bools for value types.
+        pendo.initialize({
+          apiKey: apiKey,
+          visitor: {
+            id: 'whoami',
+            //transLang: 'es' // Required if user is logged in
+            // email:        // Optional
+            // role:         // Optional
+            // You can add any additional visitor level key-values here,
+            // as long as it's not one of the above reserved names.
+          },
+          account: {
+            id: 'no-metadata', // Highly recommended
+            // name:         // Optional
+            // planLevel:    // Optional
+            // planPrice:    // Optional
+            // creationDate: // Optional
+            // You can add any additional account level key-values here,
+            // as long as it's not one of the above reserved names.
+          },
+          events: {
+            guidesLoaded: function () {
+              /*translate(pendo, {
+                  language: getCurrentLanguage(),
+                  url: 'http://127.0.0.1:3000/demoTransFile.json'
+              });*/
+            },
+
+            ready: function () {
+              pendo.updateGlobal();
+            },
+          },
+          guides: {
+            globalScripts: [
+              // {
+              //   script: function variableSubstitution() {
+              //     console.log('running variable substitution');
+              //     var substitutionRegex = /[\[^ ][%= *]*(?<type>visitor|account|parent)\.(?<property>[^|]+)\|?(?<default>.*) *%]/i;
+              //     var placeholderElements = findSubstitutableElements('#pendo-guide-container *:not(.pendo-inline-ui)');
+
+              //     if (placeholderElements.length !== 0) {
+              //       pendo._.each(placeholderElements, function (element) {
+              //         var stringToSubArray;
+              //         if (substitutionRegex.exec(element.textContent)) {
+              //           stringToSubArray = substitutionRegex.exec(element.textContent);
+              //         }
+              //         if (stringToSubArray.length) {
+              //           if (!pendo._.isUndefined(stringToSubArray.groups)) {
+              //             var mdType = stringToSubArray.groups.type.trim();
+              //             var mdProp = stringToSubArray.groups.property.trim();
+              //             var defaultString = stringToSubArray.groups.default.trim();
+              //           }
+              //           var mdValue = (pendo.getSerializedMetadata()[mdType][mdProp]) ? pendo.getSerializedMetadata()[mdType][mdProp] : defaultString;
+              //           element.textContent = element.textContent.replace(stringToSubArray[0], mdValue).replace(/\s+(\W)/g, "$1").trim();
+              //         }
+              //       })
+              //     }
+
+              //     function findSubstitutableElements(selector) {
+              //       var elements = pendo.dom(selector);
+              //       return pendo._.filter(elements, function (element) {
+              //         if (pendo.dom(element).hasClass('_pendo-text-plain') || pendo.dom(element).hasClass('bb-button')) {
+              //           return RegExp(substitutionRegex).test(element.textContent);
+              //         }
+              //       });
+              //     }
+              //   }
+              // },
+              /*
+                  advance
+                  alt+
+                  alt+C
+                  tab
+                  ctrl+F
+                  alt+\
+                  Enter
+                  Alt +  down-arrow
+                  Alt + Right Arrow
+                  Alt +.
+                  Alt +=
+                  Alt + /
+
+                      previous
+                      Alt + pgup
+                      alt-tab
+                      alt +,
+                      alt + left arrow
+                      alt + up arrow
+
+                      Dismiss
+                      Check if we have it in local storage,
+                        if not, set it in local storage
+                        if local not available
+                        check cookie
+                        set it
+              */
+              {
+                script: function keyPressGuideNav(step, guide) {
+                  var advanceKeys = ["c", "\\", "Enter", "ArrowDown", "ArrowRight", ".", "=", "/"];
+                  var previousKeys = ["PageUp", "Tab", ",", "ArrowLeft", "ArrowUp"];
+                  if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
+                    var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo');
+                    if (pendo._.isUndefined(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
+                      pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE');
+                    }
+                  } else {
+                    var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
+                      ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
+                      : JSON.parse(getCookie('dismissKeyCombo'));
+                  };
+                  // find individual key items
+                  var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
+                  var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
+                  step.attachEvent(step.guideElement[0], 'keydown', (event) => {
+                    // bail if it is a single keystroke
+                    if (
+                      (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) ||
+                      event.key === 'Meta' ||
+                      event.key === 'Shift' ||
+                      event.key === 'Control' ||
+                      event.key === 'alt'
+                    ) {
+                      return;
+                    }
+                    if ((event.altKey && advanceKeys.includes(event.key)) || (event.ctrl && event.key === "f") || event.key === "Tab") pendo.onGuideAdvanced(step); // right arrow key & tab key
+                    if ((event.altKey && previousKeys.includes(event.key))) pendo.onGuidePrevious(); // left arrow key
+                    //if ((event.altKey || event.ctrl || event.shiftKey || event.metaKey) && keys.includes(event.key)) pendo.onGuideDismissed();
+                  })
+                  function getCookie(name) {
+                    /**
+                     * Lookup a cookie value by name
+                     * @param  {String} name key of the cookie to look up its value
+                     * @return {String} return the region based locale
+                     */
+                    var match = document.cookie.match(
+                      new RegExp('(^| )' + name + '=([^;]+)')
+                    );
+                  }
+                }
+              }
+            ]
+          }
+        });
+      })('f72d5f01-b371-4cad-7f04-df672c356b81');
+
+      /*function getCurrentLanguage() {
+          return prompt('What Lanaguage (en, es, fr, de, jp)');
+      }
+  
+      function translate(pendo, config) {
+          var translation = {};
+          var translationPromise = {};
+  
+          translateGuides();
+          translateLauncher();
+  
+          function translateGuides() {
+              pendo._.each(pendo.guides, function (guide) {
+                  pendo._.each(guide.steps, function (step) {
+                      loadTranslationBeforeShow(step);
+                      translateVariablesBeforeRender(step);
+                  });
+              });
+          }
+  
+          function translateLauncher() {
+              var guidesForLauncher = pendo._.filter(pendo.guides, function (guide) {
+                  return guide.shouldBeAddedToLauncher();
+              });
+              pendo._.each(guidesForLauncher, function (guide) {
+                  loadTranslation(guide.id).then(function () {
+                      translateGuideNames(guide.id);
+                      pendo.guideWidget.updateLauncherContent(guidesForLauncher);
+                  });
+              });
+          }
+  
+          function translateGuideNames(guideId) {
+              var guide = pendo.findGuideById(guideId);
+              var lang = getGuideTranslation(guideId);
+              if (!lang) return;
+              guide.name = lang.name || guide.name;
+          }
+  
+          function loadTranslationBeforeShow(step) {
+              if (!step.before) return;
+  
+              var cancelled = false;
+              var done = false;
+  
+              step.before('hide', function beforeHide() {
+                  cancelled = true;
+              });
+  
+              step.before('show', function beforeShow(reason) {
+                  cancelled = false;
+  
+                  if (done) return true;
+                  if (translation[step.guideId]) return true;
+  
+                  step.lock();
+  
+                  loadTranslation(step.guideId).then(function () {
+                      step.unlock();
+                      if (cancelled) return;
+                      done = true;
+                      step.show(reason);
+                      if (!step.isShown()) {
+                          step.hide();
+                      }
+                  }).fail(function () {
+                      step.unlock();
+                      if (cancelled) return;
+                      done = true;
+                      step.show(reason);
+                      if (!step.isShown()) {
+                          step.hide();
+                      }
+                  });
+  
+                  return false; // Prevent the guide from showing until the translation loads
+              });
+          }
+  
+          function translateVariablesBeforeRender(step) {
+              if (!step.before) return;
+  
+              step.before('render', function translateGuide() {
+                  var stepTrans = getStepTranslation(step);
+                  if (!stepTrans) return;
+  
+                  pendo._.each(
+                      step.attributes.variables,
+                      function pendoTranslateVariable(
+                          value,
+                          key,
+                          variables
+                      ) {
+                          variables[key] =
+                              pendoGettext(key, step, stepTrans) || variables[key];
+                      }
+                  );
+              });
+          }
+  
+          function loadTranslation(guideId) {
+              if (guideId) {
+                  var url = 'https://storage.googleapis.com/pro-serv-translations/' + guideId + '.json'
+                  if (!translationPromise[guideId]) {
+                      translationPromise[guideId] = pendo.ajax.get(url).then(function (translationResponse) {
+                          translation[guideId] = translationResponse.data;
+                          return translation[guideId];
+                      });
+                  }
+              }
+              return translationPromise[guideId];
+          }
+  
+          function getGuideTranslation(guideId) {
+              if (!translation[guideId]) return;
+              return (translation[guideId] || {})[config.language];
+          }
+  
+          function getStepTranslation(step) {
+              return (getGuideTranslation(step.guideId) || {})[step.id];
+          }
+  
+          function pendoGettext(key, step, stepTranslation) {
+              // inspired by http://stackoverflow.com/questions/2400106/translation-in-javascript-like-gettext-in-php
+              return (
+                  stepTranslation[key] ||
+                  (function () {
+                      return false;
+                  })(this.guide, step, key)
+              );
+          }
+      }*/
+    })();</script><script>console.log("hidding"),window.zE("webWidget","hide")</script><link rel="stylesheet" href="https://pendomattkerb.helpjuice.com/swifty.css"><script src="https://pendomattkerb.helpjuice.com/swifty.js"></script><script>window.helpjuice_account_url="https://pendomattkerb.helpjuice.com",window.helpjuice_contact_us_url="https://pendomattkerb.helpjuice.com/contact-us",window.helpjuiceSwiftyConfig={widgetPosition:"bottomLeft",themeColor:"#126CFF",linkColor:"#126CFF"},window.helpjuiceSwiftyUrlMap={}</script></body></html><script type="text/javascript" src="/kerb/static/js/main.348389be.js"></script>
