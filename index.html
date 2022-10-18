@@ -40,6 +40,67 @@
           },
           events: {
             guidesLoaded: function () {
+              pendo._.each(pendo.guides, function (guide) {
+                pendo._.each(guide.steps, function (step) {
+                  setKeyComboBeforeShow();
+                });
+              });
+              function checkKeyCombo() {
+                if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
+                  var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
+                  if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
+                    pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE');
+                    return false;
+                  }
+                } else {
+                  var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
+                    ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
+                    : JSON.parse(getCookie('dismissKeyCombo'));
+                };
+                var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
+                var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
+                return true;
+              }
+
+              function setKeyComboBeforeShow(step) {
+                if (!step.before) return;
+
+                var cancelled = false;
+                var done = false;
+
+                step.before('hide', function beforeHide() {
+                  cancelled = true;
+                });
+
+                step.before('show', function beforeShow(reason) {
+                  step.hide();
+                  cancelled = false;
+
+                  if (done) return true;
+
+                  step.lock();
+
+                  var keyComboSet = checkKeyCombo()
+                  if (keyComboSet) {
+                    step.unlock();
+                    if (cancelled) return;
+                    done = true;
+                    step.show(reason);
+                    if (!step.isShown()) {
+                      step.hide();
+                    }
+                  } else {
+                    step.unlock();
+                    if (cancelled) return;
+                    done = true;
+                    step.show(reason);
+                    if (!step.isShown()) {
+                      step.hide();
+                    }
+                  }
+                  return false; // Prevent the guide from showing until the translation loads
+                });
+              }
             },
           },
           guides: {
@@ -91,14 +152,14 @@
                   Alt +.
                   Alt +=
                   Alt + /
- 
+
                       previous
                       Alt + pgup
                       alt-tab
                       alt +,
                       alt + left arrow
                       alt + up arrow
- 
+
                       Dismiss
                       Check if we have it in local storage,
                         if not, set it in local storage
