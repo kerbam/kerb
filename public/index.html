@@ -168,7 +168,6 @@
                 });
               });
               function checkKeyCombo(step) {
-                if (step.id !== pendo.getActiveGuide().step.id) return;
                 if (pendo.getActiveGuide())
                   pendo.onGuideDismissed();
                 if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
