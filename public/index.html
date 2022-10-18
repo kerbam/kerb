@@ -237,7 +237,7 @@
                   var advanceKeys = ["c", "\\", "Enter", "ArrowDown", "ArrowRight", ".", "=", "/"];
                   var previousKeys = ["PageUp", "Tab", ",", "ArrowLeft", "ArrowUp"];
                   if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
-                    var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo');
+                    var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
                     if (pendo._.isUndefined(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
                       pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE');
                     }
