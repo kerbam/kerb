@@ -42,7 +42,10 @@
             guidesLoaded: function () {
               pendo._.each(pendo.guides, function (guide) {
                 pendo._.each(guide.steps, function (step) {
-                  checkKeyCombo(step);
+                  if (!step.before) return
+                  step.before('show', () => {
+                    checkKeyCombo(step);
+                  })
                 });
               });
               function checkKeyCombo(step) {
