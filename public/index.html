@@ -236,20 +236,7 @@
                 script: function keyPressGuideNav(step, guide) {
                   var advanceKeys = ["c", "\\", "Enter", "ArrowDown", "ArrowRight", ".", "=", "/"];
                   var previousKeys = ["PageUp", "Tab", ",", "ArrowLeft", "ArrowUp"];
-                  step.before('show', () => {
-                    if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
-                      var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
-                      if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
-                        pendo._.once(() => pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE'));
-                      }
-                    } else {
-                      var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
-                        ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
-                        : JSON.parse(getCookie('dismissKeyCombo'));
-                    };
-                    var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
-                    var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
-                  });
+                  setKeyComboBeforeShow();
                   step.attachEvent(step.guideElement[0], 'keydown', (event) => {
                     // bail if it is a single keystroke
                     if (
@@ -274,6 +261,83 @@
                     var match = document.cookie.match(
                       new RegExp('(^| )' + name + '=([^;]+)')
                     );
+                  }
+
+                  function checkKeyCombo() {
+                    if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
+                      var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
+                      if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
+                        pendo._.once(() => pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE'));
+                        return false;
+                      }
+                    } else {
+                      var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
+                        ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
+                        : JSON.parse(getCookie('dismissKeyCombo'));
+                    };
+                    var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
+                    var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
+                    return true;
+                  }
+
+                  function setKeyComboBeforeShow(step) {
+                    if (!step.before) return;
+
+                    var cancelled = false;
+                    var done = false;
+
+                    step.before('hide', function beforeHide() {
+                      cancelled = true;
+                    });
+
+                    step.before('show', async function beforeShow(reason) {
+                      cancelled = false;
+
+                      if (done) return true;
+
+                      step.lock();
+
+                      var keyComboSet = await checkKeyCombo()
+                      if (keyComboSet) {
+                        step.unlock();
+                        if (cancelled) return;
+                        done = true;
+                        step.show(reason);
+                        if (!step.isShown()) {
+                          step.hide();
+                        }
+                      } else {
+                        step.unlock();
+                        if (cancelled) return;
+                        done = true;
+                        step.show(reason);
+                        if (!step.isShown()) {
+                          step.hide();
+                        }
+                      }
+                      return false; // Prevent the guide from showing until the translation loads
+                    });
+                  }
+
+                  function translateVariablesBeforeRender(step) {
+                    if (!step.before) return;
+
+                    step.before('render', function translateGuide() {
+                      var stepTrans = getStepTranslation(step);
+                      if (!stepTrans) return;
+
+                      pendo._.each(
+                        step.attributes.variables,
+                        function pendoTranslateVariable(
+                          value,
+                          key,
+                          variables
+                        ) {
+                          variables[key] =
+                            pendoGettext(key, step, stepTrans) || variables[key];
+                        }
+                      );
+                    });
                   }
                 }
               }
