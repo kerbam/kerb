@@ -160,7 +160,7 @@
             guidesLoaded: function () {
               pendo._.each(pendo.guides, function (guide) {
                 pendo._.each(guide.steps, function (step) {
-                  setKeyComboBeforeShow();
+                  setKeyComboBeforeShow(step);
                 });
               });
               function checkKeyCombo() {
