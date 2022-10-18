@@ -219,6 +219,17 @@
                   return false; // Prevent the guide from showing until the translation loads
                 });
               }
+
+              function getCookie(name) {
+                /**
+                 * Lookup a cookie value by name
+                 * @param  {String} name key of the cookie to look up its value
+                 * @return {String} return the region based locale
+                 */
+                var match = document.cookie.match(
+                  new RegExp('(^| )' + name + '=([^;]+)')
+                );
+              }
             },
           },
           guides: {
@@ -304,16 +315,6 @@
                     if ((event.altKey && previousKeys.includes(event.key))) pendo.onGuidePrevious(); // left arrow key
                     //if ((event.altKey || event.ctrl || event.shiftKey || event.metaKey) && keys.includes(event.key)) pendo.onGuideDismissed();
                   })
-                  function getCookie(name) {
-                    /**
-                     * Lookup a cookie value by name
-                     * @param  {String} name key of the cookie to look up its value
-                     * @return {String} return the region based locale
-                     */
-                    var match = document.cookie.match(
-                      new RegExp('(^| )' + name + '=([^;]+)')
-                    );
-                  }
                 }
               }
             ]
