@@ -121,7 +121,7 @@
                   if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
                     var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
                     if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
-                      pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE');
+                      pendo._.once(() => pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE'));
                     }
                   } else {
                     var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
