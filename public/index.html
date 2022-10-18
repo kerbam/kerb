@@ -165,7 +165,7 @@
             },
 
             ready: function () {
-                pendo.updateGlobal();
+              pendo.updateGlobal();
             },
           },
           guides: {
@@ -204,11 +204,77 @@
               //     }
               //   }
               // },
+              /*
+                  advance
+                  alt+
+                  alt+C
+                  tab
+                  ctrl+F
+                  alt+\
+                  Enter
+                  Alt +  down-arrow
+                  Alt + Right Arrow
+                  Alt +.
+                  Alt +=
+                  Alt + /
+
+                      previous
+                      Alt + pgup
+                      alt-tab
+                      alt +,
+                      alt + left arrow
+                      alt + up arrow
+
+                      Dismiss
+                      Check if we have it in local storage,
+                        if not, set it in local storage
+                        if local not available
+                        check cookie
+                        set it
+              */
               {
-                script: function sendCompletionToken(step, guide) {
-                  console.log('Regex match');
-                },
-                regex: "/^\[\w*\]/",
+                script: function keyPressGuideNav(step, guide) {
+                  var advanceKeys = ["c", "\\", "Enter", "ArrowDown", "ArrowRight", ".", "=", "/"];
+                  var previousKeys = ["PageUp", "Tab", ",", "ArrowLeft", "ArrowUp"];
+                  if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
+                    var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo');
+                    if (pendo._.isUndefined(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
+                      pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE');
+                    }
+                  } else {
+                    var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
+                      ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
+                      : JSON.parse(getCookie('dismissKeyCombo'));
+                  };
+                  // find individual key items
+                  var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
+                  var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
+                  step.attachEvent(step.guideElement[0], 'keydown', (event) => {
+                    // bail if it is a single keystroke
+                    if (
+                      (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) ||
+                      event.key === 'Meta' ||
+                      event.key === 'Shift' ||
+                      event.key === 'Control' ||
+                      event.key === 'alt'
+                    ) {
+                      return;
+                    }
+                    if ((event.altKey && advanceKeys.includes(event.key)) || (event.ctrl && event.key === "f") || event.key === "Tab") pendo.onGuideAdvanced(step); // right arrow key & tab key
+                    if ((event.altKey && previousKeys.includes(event.key))) pendo.onGuidePrevious(); // left arrow key
+                    //if ((event.altKey || event.ctrl || event.shiftKey || event.metaKey) && keys.includes(event.key)) pendo.onGuideDismissed();
+                  })
+                  function getCookie(name) {
+                    /**
+                     * Lookup a cookie value by name
+                     * @param  {String} name key of the cookie to look up its value
+                     * @return {String} return the region based locale
+                     */
+                    var match = document.cookie.match(
+                      new RegExp('(^| )' + name + '=([^;]+)')
+                    );
+                  }
+                }
               }
             ]
           }
