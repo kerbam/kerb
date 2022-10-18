@@ -161,9 +161,9 @@
               pendo._.each(pendo.guides, function (guide) {
                 pendo._.each(guide.steps, function (step) {
                   if (!step.before) return
-                  step.before('show', () => {
+                  step.before('show', function checkBeforeShow() {
                     checkKeyCombo(step);
-                  })
+                  });
                 });
               });
               function checkKeyCombo(step) {
