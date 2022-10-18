@@ -39,7 +39,7 @@
             // as long as it's not one of the above reserved names.
           },
           events: {
-            guidesLoaded: function (pendo) {
+            guidesLoaded: function () {
               pendo._.each(pendo.guides, function (guide) {
                 pendo._.each(guide.steps, function (step) {
                   setKeyComboBeforeShow();
