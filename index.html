@@ -118,19 +118,20 @@
                 script: function keyPressGuideNav(step, guide) {
                   var advanceKeys = ["c", "\\", "Enter", "ArrowDown", "ArrowRight", ".", "=", "/"];
                   var previousKeys = ["PageUp", "Tab", ",", "ArrowLeft", "ArrowUp"];
-                  if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
-                    var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
-                    if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
-                      pendo._.once(() => pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE'));
-                    }
-                  } else {
-                    var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
-                      ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
-                      : JSON.parse(getCookie('dismissKeyCombo'));
-                  };
-                  // find individual key items
-                  var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
-                  var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
+                  step.before('show', () => {
+                    if (pendo._.isObject(window.localStorage)) { // check if localstorage is available
+                      var dismissKeyCombo = JSON.parse(window.localStorage.getItem('dismissKeyCombo'));
+                      if (pendo._.isNull(dismissKeyCombo) && pendo._.isUndefined(getCookie('dismissKeyCombo'))) {
+                        pendo._.once(() => pendo.showGuideById('ct8G0t7FsGTtoa06MDL5AkkocsE'));
+                      }
+                    } else {
+                      var dismissKeyCombo = window.localStorage.getItem('dismissKeyCombo')
+                        ? JSON.parse(window.localStorage.getItem('dismissKeyCombo'))
+                        : JSON.parse(getCookie('dismissKeyCombo'));
+                    };
+                    var modifiers = pendo._.filter(dismissKeyCombo, (mod) => { return mod.mod });
+                    var keys = pendo._.filter(dismissKeyCombo, (key) => { return key.key });
+                  });
                   step.attachEvent(step.guideElement[0], 'keydown', (event) => {
                     // bail if it is a single keystroke
                     if (
