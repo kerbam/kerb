@@ -290,14 +290,14 @@
                       cancelled = true;
                     });
 
-                    step.before('show', async function beforeShow(reason) {
+                    step.before('show', function beforeShow(reason) {
                       cancelled = false;
 
                       if (done) return true;
 
                       step.lock();
 
-                      var keyComboSet = await checkKeyCombo()
+                      var keyComboSet = checkKeyCombo()
                       if (keyComboSet) {
                         step.unlock();
                         if (cancelled) return;
