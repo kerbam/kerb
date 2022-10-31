@@ -68,6 +68,12 @@
           },
           guides: {
             globalScripts: [
+              {
+                script: function() {
+                  console.log('guide is shown');
+                },
+                test: guide.id === "CQ1bEqAbFM8e6Z3kxCi03CP8LV0"
+              }
               // {
               //   script: function variableSubstitution() {
               //     console.log('running variable substitution');
@@ -130,27 +136,27 @@
                         check cookie
                         set it
               */
-              {
-                script: function keyPressGuideNav(step, guide) {
-                  var advanceKeys = ["c", "\\", "Enter", "ArrowDown", "ArrowRight", ".", "=", "/"];
-                  var previousKeys = ["PageUp", "Tab", ",", "ArrowLeft", "ArrowUp"];
-                  step.attachEvent(step.guideElement[0], 'keydown', (event) => {
-                    // bail if it is a single keystroke
-                    if (
-                      (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) ||
-                      event.key === 'Meta' ||
-                      event.key === 'Shift' ||
-                      event.key === 'Control' ||
-                      event.key === 'alt'
-                    ) {
-                      return;
-                    }
-                    if ((event.altKey && advanceKeys.includes(event.key)) || (event.ctrl && event.key === "f") || event.key === "Tab") pendo.onGuideAdvanced(step); // right arrow key & tab key
-                    if ((event.altKey && previousKeys.includes(event.key))) pendo.onGuidePrevious(); // left arrow key
-                    if ((event.altKey && event.key === 'y')) pendo.onGuideDismissed();
-                  })
-                }
-              }
+              // {
+              //   script: function keyPressGuideNav(step, guide) {
+              //     var advanceKeys = ["c", "\\", "Enter", "ArrowDown", "ArrowRight", ".", "=", "/"];
+              //     var previousKeys = ["PageUp", "Tab", ",", "ArrowLeft", "ArrowUp"];
+              //     step.attachEvent(step.guideElement[0], 'keydown', (event) => {
+              //       // bail if it is a single keystroke
+              //       if (
+              //         (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) ||
+              //         event.key === 'Meta' ||
+              //         event.key === 'Shift' ||
+              //         event.key === 'Control' ||
+              //         event.key === 'alt'
+              //       ) {
+              //         return;
+              //       }
+              //       if ((event.altKey && advanceKeys.includes(event.key)) || (event.ctrl && event.key === "f") || event.key === "Tab") pendo.onGuideAdvanced(step); // right arrow key & tab key
+              //       if ((event.altKey && previousKeys.includes(event.key))) pendo.onGuidePrevious(); // left arrow key
+              //       if ((event.altKey && event.key === 'y')) pendo.onGuideDismissed();
+              //     })
+              //   }
+              // }
             ]
           }
         });
