@@ -72,7 +72,9 @@
                 script: function() {
                   console.log('guide is shown');
                 },
-                test: guide.id === "CQ1bEqAbFM8e6Z3kxCi03CP8LV0"
+                test: function() {
+                  return guide.id === "CQ1bEqAbFM8e6Z3kxCi03CP8LV0"
+                }
               }
               // {
               //   script: function variableSubstitution() {
