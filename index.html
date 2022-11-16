@@ -70,9 +70,7 @@
             globalScripts: [
               {
                 script: function (step, guide) {
-                  if (!pendo.designerEnabled) {
-                    rotateCaret();
-                  }
+                  rotateCaret();
 
                   (function (step, guide) {
                     var target = pendo.dom("#pendo-base")[0];
