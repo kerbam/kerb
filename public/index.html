@@ -237,294 +237,295 @@
             globalScripts: [
               {
                 script: function (step, guide) {
-                  pendo.validateUiElements = function(validationObject) {
-                    var validationMap = validationObject;
-                  };
-                  // These should not need to change
-                  var dom = pendo.dom;
-                  var guideContainerSelector = '#pendo-guide-container'
-                  var stepSelector = `#pendo-g-${step.id}`;
-                  var validationErrorSelector = '#pendo-validation-error';
-                  var canAdvance = false;
-                  var advanceButton = dom('#pendo-advance-button');
-                  var previousButton = dom('#pendo-previous-button');
+                  (function (step, guide, dom) {
+                    pendo.validateUiElements = function (validationObject) {
+                      var validationMap = validationObject;
+                    };
+                    // These should not need to change
+                    var guideContainerSelector = '#pendo-guide-container'
+                    var stepSelector = `#pendo-g-${step.id}`;
+                    var validationErrorSelector = '#pendo-validation-error';
+                    var canAdvance = false;
+                    var advanceButton = dom('#pendo-advance-button');
+                    var previousButton = dom('#pendo-previous-button');
 
-                  if (!pendo.designer) {
-                    if (canWeLog()) console.log(`%c[Pendo ProService] Displaying guide: ${guide.id} on step: ${step.id}`,
-                      'background: #0071bc; color: #fff');
-                  }
+                    if (!pendo.designer) {
+                      if (canWeLog()) console.log(`%c[Pendo ProService] Displaying guide: ${guide.id} on step: ${step.id}`,
+                        'background: #0071bc; color: #fff');
+                    }
 
-                  dom('#pendo-guide-container').on('click', '#pendo-advance-button', () => {
-                    step.advance()
-                  }).on('click', '#pendo-previous-button', () => {
-                    pendo.onGuidePrevious()
-                  }).on('click', '#pendo-dismiss-button', () => {
-                    pendo.onGuideDismissed()
-                  });
-
-                  step.before('advance', function () {
-                    if (canAdvance) return pendo.onGuideAdvanced();
-                    dom(validationErrorSelector).remove();
-                    validations = [];
-                    pendo._.each(validationMap, function (objectToValidate) {
-                      if (checkForUiElement(objectToValidate.selector)) {
-                        validations.push({
-                          objectToValidate,
-                          invalid: validateElement(objectToValidate, dom(objectToValidate.selector)[0])
-                        });
-                      }
-                    })
-                    if (checkFiles) {
-                      validations.push({
-                        objectToValidate: {
-                          selector: 'file-uploads',
-                          field: 'File Uploads'
-                        },
-                        invalid: checkFileNames()
-                      })
-                    }
-                    if (checkForErrorElement()) {
-                      validations.errorElementPresent = true;
-                    }
-                    if (validations.some(item => item.invalid === true) || validations.errorElementPresent) {
-                      displayError();
-                      return false;
-                    }
-                    if (shouldShowSuccessMessage) {
-                      displaySuccess();
-                      return false;
-                    }
-                    return true;
-                  });
-
-                  // Before advancing check if fields in map are valid
-                  // Event listener for validations
-                  if (shouldAdvanceOnElementClick) {
-                    dom(advanceButtonSelector).on('click', function () {
-                      step.advance();
+                    dom('#pendo-guide-container').on('click', '#pendo-advance-button', () => {
+                      step.advance()
+                    }).on('click', '#pendo-previous-button', () => {
+                      pendo.onGuidePrevious()
+                    }).on('click', '#pendo-dismiss-button', () => {
+                      pendo.onGuideDismissed()
                     });
-                  }
 
-                  if (shouldAutoValidate) {
-                    step.advance();
-                  }
+                    step.before('advance', function () {
+                      if (canAdvance) return pendo.onGuideAdvanced();
+                      dom(validationErrorSelector).remove();
+                      validations = [];
+                      pendo._.each(validationMap, function (objectToValidate) {
+                        if (checkForUiElement(objectToValidate.selector)) {
+                          validations.push({
+                            objectToValidate,
+                            invalid: validateElement(objectToValidate, dom(objectToValidate.selector)[0])
+                          });
+                        }
+                      })
+                      if (checkFiles) {
+                        validations.push({
+                          objectToValidate: {
+                            selector: 'file-uploads',
+                            field: 'File Uploads'
+                          },
+                          invalid: checkFileNames()
+                        })
+                      }
+                      if (checkForErrorElement()) {
+                        validations.errorElementPresent = true;
+                      }
+                      if (validations.some(item => item.invalid === true) || validations.errorElementPresent) {
+                        displayError();
+                        return false;
+                      }
+                      if (shouldShowSuccessMessage) {
+                        displaySuccess();
+                        return false;
+                      }
+                      return true;
+                    });
 
-                  step.after("teardown", () => {
-                    canAdvance = false;
-                  });
+                    // Before advancing check if fields in map are valid
+                    // Event listener for validations
+                    if (shouldAdvanceOnElementClick) {
+                      dom(advanceButtonSelector).on('click', function () {
+                        step.advance();
+                      });
+                    }
 
-                  function displayError() {
-                    if (dom(validationErrorSelector).length > 0) return false;
-                    dom(stepSelector)[0].style.visibility = '';
-                    dom(guideContainerSelector).prepend(createRequiredTextElement());
-                    return false; // required to keep the guide from progressing
-                  }
+                    if (shouldAutoValidate) {
+                      step.advance();
+                    }
 
-                  function displaySuccess() {
-                    dom(stepSelector)[0].style.visibility = '';
-                    dom(validationErrorSelector).remove();
-                    dom(guideContainerSelector).prepend(createSuccessMessage());
-                    canAdvance = true;
-                    if ((previousButton.length !== 0) && !previousButton[0].disabled)
-                      updateGuideUI(previousButton, 'disabled', true, 'set');
-                    return false;
-                  }
+                    step.after("teardown", () => {
+                      canAdvance = false;
+                    });
 
-                  function validateElement(objectToValidate, element) {
-                    // Bail out if element isn't found on the page. Check CSS selector.
-                    if (!checkForUiElement(objectToValidate.selector)) {
-                      if (canWeLog()) console.log(`%c[Pendo ProService] could not find element with selector ${objectToValidate.selector}.
+                    function displayError() {
+                      if (dom(validationErrorSelector).length > 0) return false;
+                      dom(stepSelector)[0].style.visibility = '';
+                      dom(guideContainerSelector).prepend(createRequiredTextElement());
+                      return false; // required to keep the guide from progressing
+                    }
+
+                    function displaySuccess() {
+                      dom(stepSelector)[0].style.visibility = '';
+                      dom(validationErrorSelector).remove();
+                      dom(guideContainerSelector).prepend(createSuccessMessage());
+                      canAdvance = true;
+                      if ((previousButton.length !== 0) && !previousButton[0].disabled)
+                        updateGuideUI(previousButton, 'disabled', true, 'set');
+                      return false;
+                    }
+
+                    function validateElement(objectToValidate, element) {
+                      // Bail out if element isn't found on the page. Check CSS selector.
+                      if (!checkForUiElement(objectToValidate.selector)) {
+                        if (canWeLog()) console.log(`%c[Pendo ProService] could not find element with selector ${objectToValidate.selector}.
                Please check CSS selector.`,
+                          'background: #0071bc; color: #fff');
+                        return;
+                      }
+                      //
+                      var type = element.nodeName.toLowerCase();
+                      var textToMatch = objectToValidate.text;
+                      var elementTypes = {
+                        input: validateInputValue,
+                        label: validateInputValue,
+                        select: validateSelectValue,
+                        textarea: validateTextAreaValue,
+                        div: validateUiSelectValue,
+                        span: validateUiSelectValue,
+                        tr: validateTableRow
+                      }
+
+
+                      function validateInputValue() {
+                        if (element.nodeName.toLowerCase() === 'label') {
+                          element.type = 'label';
+                        }
+                        switch (element.type) {
+                          case 'radio':
+                          case 'checkbox':
+                          case 'label':
+                            return checkCheckboxValue(element.type, element, objectToValidate);
+                          default:
+                            return element.value?.includes(textToMatch) ? false : true;
+                        }
+                      }
+
+                      function validateSelectValue(element) {
+                        if (isMultiSelect(element)) {
+                          return validateMultiSelect(element);
+                        }
+                        var selectedIndex = element.options.selectedIndex;
+                        return element.options[selectedIndex].textContent !== textToMatch ? true : false;
+                      }
+
+                      function validateTextAreaValue() {
+                        return element.value === textToMatch;
+                      }
+
+                      function validateUiSelectValue() {
+                        return angular.element(element).scope().$select?.selected.name === textToMatch;
+                      }
+
+                      function validateMultiSelect(element) {
+                        var selectedOptions = pendo._.pluck(element.options, 'textContent');
+                        if (selectedOptions.length === 0) return true;
+                        var multiSelectValidations = [];
+                        if (objectToValidate.shouldValidateMultiSelectText) {
+                          if (textToMatch.every(element => selectedOptions.includes(element)) === true) { // sets invalid to false
+                            multiSelectValidations.push(false);
+                          } else {
+                            multiSelectValidations.push(true);
+                          }
+                        }
+                        if (objectToValidate.shouldValidateRowNumber) {
+                          if (element.options.length === objectToValidate.numberOfRowsToValidate) { // sets invalid to false
+                            multiSelectValidations.push(false);
+                          } else {
+                            multiSelectValidations.push(true);
+                          }
+                        }
+                        if (multiSelectValidations.includes(true)) {
+                          return true;
+                        }
+                        return false; // sets whether the element is invalid to false
+                      }
+
+                      function validateTableRow(element) {
+                        var cellTextValues = pendo._.pluck(dom(element)[0].cells, 'textContent').filter((item => item));
+                        if (textToMatch.every(item => cellTextValues.includes(item)) === true) {
+                          return false;
+                        }
+                        return true;
+                      }
+
+                      if (type in elementTypes) return elementTypes[type](element, objectToValidate);
+                      // When we do not have a method for a particular element, exit
+                      if (canWeLog()) console.log(`%c[Pendo ProService] No method for type: ${type}`,
                         'background: #0071bc; color: #fff');
                       return;
                     }
-                    //
-                    var type = element.nodeName.toLowerCase();
-                    var textToMatch = objectToValidate.text;
-                    var elementTypes = {
-                      input: validateInputValue,
-                      label: validateInputValue,
-                      select: validateSelectValue,
-                      textarea: validateTextAreaValue,
-                      div: validateUiSelectValue,
-                      span: validateUiSelectValue,
-                      tr: validateTableRow
+
+                    function checkForErrorElement() {
+                      return document.getElementsByClassName(errorClass).length > 0;
                     }
 
-
-                    function validateInputValue() {
-                      if (element.nodeName.toLowerCase() === 'label') {
-                        element.type = 'label';
-                      }
-                      switch (element.type) {
-                        case 'radio':
-                        case 'checkbox':
-                        case 'label':
-                          return checkCheckboxValue(element.type, element, objectToValidate);
-                        default:
-                          return element.value?.includes(textToMatch) ? false : true;
-                      }
+                    function isMultiSelect(element) {
+                      return element.multiple;
                     }
 
-                    function validateSelectValue(element) {
-                      if (isMultiSelect(element)) {
-                        return validateMultiSelect(element);
-                      }
-                      var selectedIndex = element.options.selectedIndex;
-                      return element.options[selectedIndex].textContent !== textToMatch ? true : false;
-                    }
+                    function checkFileNames() {
+                      var fileNameValues = [];
+                      pendo._.each(dom(
+                        `${filesSelector} input[type="file"]`),
+                        function (item) {
+                          if (item.files.length > 0) {
+                            pendo._.each(item.files, function (file) {
+                              if (!pendo._.isUndefined(file.name))
+                                fileNameValues.push(file.name)
+                            })
 
-                    function validateTextAreaValue() {
-                      return element.value === textToMatch;
-                    }
-
-                    function validateUiSelectValue() {
-                      return angular.element(element).scope().$select?.selected.name === textToMatch;
-                    }
-
-                    function validateMultiSelect(element) {
-                      var selectedOptions = pendo._.pluck(element.options, 'textContent');
-                      if (selectedOptions.length === 0) return true;
-                      var multiSelectValidations = [];
-                      if (objectToValidate.shouldValidateMultiSelectText) {
-                        if (textToMatch.every(element => selectedOptions.includes(element)) === true) { // sets invalid to false
-                          multiSelectValidations.push(false);
-                        } else {
-                          multiSelectValidations.push(true);
-                        }
-                      }
-                      if (objectToValidate.shouldValidateRowNumber) {
-                        if (element.options.length === objectToValidate.numberOfRowsToValidate) { // sets invalid to false
-                          multiSelectValidations.push(false);
-                        } else {
-                          multiSelectValidations.push(true);
-                        }
-                      }
-                      if (multiSelectValidations.includes(true)) {
-                        return true;
-                      }
-                      return false; // sets whether the element is invalid to false
-                    }
-
-                    function validateTableRow(element) {
-                      var cellTextValues = pendo._.pluck(dom(element)[0].cells, 'textContent').filter((item => item));
-                      if (textToMatch.every(item => cellTextValues.includes(item)) === true) {
+                          }
+                        })
+                      if (fileNameValues.length === 0) return true;
+                      if (fileNamesToMatch.every(element => fileNameValues.includes(element)) === true) {
                         return false;
                       }
                       return true;
                     }
 
-                    if (type in elementTypes) return elementTypes[type](element, objectToValidate);
-                    // When we do not have a method for a particular element, exit
-                    if (canWeLog()) console.log(`%c[Pendo ProService] No method for type: ${type}`,
-                      'background: #0071bc; color: #fff');
-                    return;
-                  }
+                    function checkCheckboxValue(type, element, objectToValidate) {
+                      if (type === 'label') {
+                        objectToValidate = pendo._.find(element.parentElement.childNodes, function (child) {
+                          return child.nodeName.toLowerCase() === 'input'
+                        });
+                      }
+                      return !element.checked === objectToValidate.text;
+                    }
 
-                  function checkForErrorElement() {
-                    return document.getElementsByClassName(errorClass).length > 0;
-                  }
-
-                  function isMultiSelect(element) {
-                    return element.multiple;
-                  }
-
-                  function checkFileNames() {
-                    var fileNameValues = [];
-                    pendo._.each(dom(
-                      `${filesSelector} input[type="file"]`),
-                      function (item) {
-                        if (item.files.length > 0) {
-                          pendo._.each(item.files, function (file) {
-                            if (!pendo._.isUndefined(file.name))
-                              fileNameValues.push(file.name)
-                          })
-
+                    function createRequiredTextElement() {
+                      var validationErrorText = [];
+                      pendo._.each(validations, function (validation) {
+                        if (validation.objectToValidate.selector === "file-uploads") {
+                          validation.objectToValidate.text = fileNamesToMatch.join(', \n');
+                        }
+                        if (dom(validation.objectToValidate.selector)[0].type === 'checkbox' &&
+                          validation.objectToValidate.text === true) {
+                          validation.objectToValidate.helperText = "should be checked";
+                        }
+                        if (dom(validation.objectToValidate.selector)[0].type === 'checkbox' &&
+                          validation.objectToValidate.text === false) {
+                          validation.objectToValidate.helperText = "should be unchecked";
+                        }
+                        if (validation.invalid) {
+                          if (shouldShowExpectedResults) {
+                            validationErrorText.push(
+                              `<li><strong>${validation.objectToValidate.field}:</strong> 
+                     <em>${validation.objectToValidate.helperText}</em></li>`
+                            )
+                          } else {
+                            validationErrorText.push(
+                              `<li><strong>${validation.objectToValidate.field}</strong>`
+                            )
+                          }
+                        }
+                        if (!pendo._.isUndefined(validation.errorElementPresent)) {
+                          if (shouldShowExpectedResults) {
+                            validationErrorText.push(
+                              `<em>${validation.objectToValidate.helperText}</em>`)
+                          }
                         }
                       })
-                    if (fileNameValues.length === 0) return true;
-                    if (fileNamesToMatch.every(element => fileNameValues.includes(element)) === true) {
-                      return false;
-                    }
-                    return true;
-                  }
-
-                  function checkCheckboxValue(type, element, objectToValidate) {
-                    if (type === 'label') {
-                      objectToValidate = pendo._.find(element.parentElement.childNodes, function (child) {
-                        return child.nodeName.toLowerCase() === 'input'
-                      });
-                    }
-                    return !element.checked === objectToValidate.text;
-                  }
-
-                  function createRequiredTextElement() {
-                    var validationErrorText = [];
-                    pendo._.each(validations, function (validation) {
-                      if (validation.objectToValidate.selector === "file-uploads") {
-                        validation.objectToValidate.text = fileNamesToMatch.join(', \n');
-                      }
-                      if (dom(validation.objectToValidate.selector)[0].type === 'checkbox' &&
-                        validation.objectToValidate.text === true) {
-                        validation.objectToValidate.helperText = "should be checked";
-                      }
-                      if (dom(validation.objectToValidate.selector)[0].type === 'checkbox' &&
-                        validation.objectToValidate.text === false) {
-                        validation.objectToValidate.helperText = "should be unchecked";
-                      }
-                      if (validation.invalid) {
-                        if (shouldShowExpectedResults) {
-                          validationErrorText.push(
-                            `<li><strong>${validation.objectToValidate.field}:</strong> 
-                     <em>${validation.objectToValidate.helperText}</em></li>`
-                          )
-                        } else {
-                          validationErrorText.push(
-                            `<li><strong>${validation.objectToValidate.field}</strong>`
-                          )
-                        }
-                      }
-                      if (!pendo._.isUndefined(validation.errorElementPresent)) {
-                        if (shouldShowExpectedResults) {
-                          validationErrorText.push(
-                            `<em>${validation.objectToValidate.helperText}</em>`)
-                        }
-                      }
-                    })
-                    return `<div id="pendo-validation-error">${errorString}<ul>
+                      return `<div id="pendo-validation-error">${errorString}<ul>
        ${validationErrorText.join('\n')
-                      }
+                        }
        </ul></div>`;
-                  }
-
-                  function createSuccessMessage() {
-                    return `<p id="success-message">${successString} ${nextStepsString}</p>`;
-                  }
-
-                  function checkForUiElement(selector) {
-                    return dom(selector)[0];
-                  }
-
-                  function canWeLog() {
-                    if (pendo._.isObject(window.localStorage)) {
-                      var isDebuggingEnabled = window.localStorage.getItem('debug-enabled')
-                      var isLoggingEnabled = window.localStorage.getItem('log-enabled');
-                      if (isDebuggingEnabled === 'true' || isLoggingEnabled === 'true')
-                        return true;
                     }
-                  }
 
-                  function updateGuideUI(element, attribute, value, action) {
-                    if (shouldDisableButton) {
-                      if (element.length === 0) return;
-                      if (action === 'set') {
-                        element[0].setAttribute(attribute, value)
-                      }
-                      if (action === 'remove') {
-                        element[0].removeAttribute(attribute);
+                    function createSuccessMessage() {
+                      return `<p id="success-message">${successString} ${nextStepsString}</p>`;
+                    }
+
+                    function checkForUiElement(selector) {
+                      return dom(selector)[0];
+                    }
+
+                    function canWeLog() {
+                      if (pendo._.isObject(window.localStorage)) {
+                        var isDebuggingEnabled = window.localStorage.getItem('debug-enabled')
+                        var isLoggingEnabled = window.localStorage.getItem('log-enabled');
+                        if (isDebuggingEnabled === 'true' || isLoggingEnabled === 'true')
+                          return true;
                       }
                     }
-                  }
+
+                    function updateGuideUI(element, attribute, value, action) {
+                      if (shouldDisableButton) {
+                        if (element.length === 0) return;
+                        if (action === 'set') {
+                          element[0].setAttribute(attribute, value)
+                        }
+                        if (action === 'remove') {
+                          element[0].removeAttribute(attribute);
+                        }
+                      }
+                    }
+                  })(step, guide, pendo.dom);
                 },
                 test: function (step, guide) {
                   return (step.name === 'validation');
