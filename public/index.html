@@ -238,7 +238,7 @@
               {
                 script: function (step, guide) {
                   var dom = pendo.dom;
-                  pendo.validateUiElements = function (validationObject) {
+                  window.validateFromPendoGuide = function (validationObject) {
                     var validationMap = validationObject;
                     console.log('validation element function');
                   };
