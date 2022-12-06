@@ -70,7 +70,7 @@
             globalScripts: [
               {
                 script: function (step, guide) {
-                  function canICallFromStep(message) {
+                  pendo.canICallFromStep = function (message) {
                     console.log(String(message));
                   };
 
