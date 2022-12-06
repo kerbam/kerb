@@ -240,9 +240,7 @@
                   console.log(step, guide);
                 },
                 test: function (step, guide) {
-                  if (this.shouldValidate) {
-                    console.log(`Validating on step`);
-                  }
+                  return (this.shouldValidate);
                 },
               }
               // {
