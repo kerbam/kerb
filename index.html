@@ -70,10 +70,6 @@
             globalScripts: [
               {
                 script: function (step, guide) {
-                  pendo.canICallFromStep = function (message) {
-                    console.log(String(message));
-                  };
-
                   rotateCaret();
 
                   (function (step, guide) {
