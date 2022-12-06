@@ -74,7 +74,8 @@
                   console.log('running validation');
                 },
                 test: function (step, guide) {
-                  this.shouldValidate === true;
+                  if (this.shouldValidate)
+                    return true;
                 },
               }
               // {
