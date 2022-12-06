@@ -236,7 +236,7 @@
           guides: {
             globalScripts: [
               {
-                script: function () {
+                script: function (step, guide) {
                   (function (step, guide, dom) {
                     pendo.validateUiElements = function (validationObject) {
                       var validationMap = validationObject;

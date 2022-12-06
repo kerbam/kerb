@@ -6,11 +6,11 @@
   "dependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-scripts": "^1.1.4"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start --no-prerender",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build --no-prerender",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build"
