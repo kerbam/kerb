@@ -239,6 +239,7 @@
                 script: function (step, guide) {
                   pendo.validateUiElements = function (validationObject) {
                     var validationMap = validationObject;
+                    console.log('validation element function');
                   };
                   // These should not need to change
                   var guideContainerSelector = '#pendo-guide-container'
