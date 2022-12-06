@@ -72,7 +72,7 @@
                 script: function (step, guide) {
                 },
                 test: function (step, guide) {
-                  console.log(step, guide)
+                  return (step.shouldValidate);
                 }
               }
               // {
