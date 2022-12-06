@@ -71,11 +71,11 @@
               {
                 script: function (step, guide) {
                   console.log(step, guide);
-                  console.log('running validation');
                 },
                 test: function (step, guide) {
-                  if (this.shouldValidate)
-                    console.log('validate');
+                  if (this.shouldValidate) {
+                    console.log(`Validating on step`);
+                  }
                 },
               }
               // {
