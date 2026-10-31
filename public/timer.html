@@ -5,15 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTML5 Video Text Overlay Flexbox</title>
 
-  <!-- Content Security Policy that explicitly blocks Cloudflare analytics and locks down assets -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline' https://cloudflare.com https://googleapis.com; font-src 'self' https://gstatic.com; media-src 'self' https://mbcbeckley.com; script-src 'self' 'unsafe-inline' https://cloudflare.com">
+  <!-- Maximum security Content Security Policy with all third-party media rules dropped -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; upgrade-insecure-requests; style-src 'self' 'unsafe-inline' https://cloudflare.com https://googleapis.com; font-src 'self' https://gstatic.com;">
 
-  <!-- Secure Normalize CSS CDN with Subresource Integrity -->
+  <!-- Secure Normalize CSS CDN -->
   <link rel="stylesheet" href="https://cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPd7Y43wE41XIeWBE5CwZ313f30uaog7A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <!-- Google Fonts Payload -->
   <link rel="stylesheet" href="https://googleapis.com/css?family=Nobile:700,400|Gafata|Open+Sans:300&display=swap">
-  <link rel="stylesheet" href="css/style.css">
 
   <style>
     body {
@@ -55,9 +54,9 @@
 <body>
 
   <div class="video-container">
-    <!-- crossorigin setting directly inside media source to clear security blocks -->
-    <video autoplay loop muted playsinline crossorigin="anonymous">
-      <source src="https://mbcbeckley.com/files/MBCBeckley/Graphics%20Resources/24553_fieryDestruction_HD_BG.mp4" type="video/mp4">
+    <video autoplay loop muted playsinline>
+      <!-- Update this filename to match what you name the file in your repository -->
+      <source src="24553_fieryDestruction_HD_BG.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <div class="overlay-desc">
@@ -66,7 +65,6 @@
   </div>
 
   <script>
-    // Clean event structure bypassing the need for heavy jQuery scripts
     document.addEventListener("DOMContentLoaded", function() {
       const countElement = document.getElementById('counter');
       let countValue = Number(countElement.textContent);
